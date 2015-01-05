@@ -24,7 +24,7 @@ print "<tr>";
 foreach( $fields as $field )
 {
 $nom_actor = utf8_decode(substr("$row[$field]",strrpos("$row[$field]","/")+1)); 
-echo "<td><a href=\"" . $__url_wiki . $nom_actor ."\"> ".$nom_actor. " -- <a href=\"./listeFilms.php?actor=.$nom_actor\" >Voir ses films</a></td>";
+echo "<td><a href=\"" . $__url_wiki . $nom_actor ."\"> ".$nom_actor. "</a> -- <a href=\"./listeFilms.php?actor=$nom_actor\" >Voir ses films</a></td>";
 }
 print "</tr>";
 }
