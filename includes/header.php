@@ -3,7 +3,7 @@
 require_once( "sparqllib.php" );
 $db = sparql_connect( "http://fr.dbpedia.org/sparql" );
 
-if( !$db ) { print sparql_errno() . " test : " . sparql_error(). "\n"; exit; }
+if( !$db ) { print sparql_errno() . " : " . sparql_error(). "\n"; exit; }
 
 // Initialisation du namespace pour l'ontology
 sparql_ns("dbpedia-owl","http://dbpedia.org/ontology/");
