@@ -23,7 +23,7 @@ while( $row = sparql_fetch_array( $list_actor ) )
 print "<tr>";
 foreach( $fields as $field )
 {
-$nom_actor = utf8_decode(substr("$row[$field]",strrpos("$row[$field]","/"))); 
+$nom_actor = utf8_decode(substr("$row[$field]",strrpos("$row[$field]","/")+1)); 
 echo "<td><a href=\"" . $__url_wiki . $nom_actor ."\"> ".$nom_actor. "</td>";
 }
 print "</tr>";
