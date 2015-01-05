@@ -1,14 +1,14 @@
 <?php
 include("./includes/header.php");
 $sparql = "
- select ?nom where {
- ?Ressource foaf:name ?nom .
- ?Ressource rdf:type ?profession .
- ?Ressource dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood .
- ?Ressource dbpedia-owl:wikiPageWikiLink dbpedia-fr:Cinéma .
- FILTER (?profession like \"*Actor*\") .
- }
- ORDER BY ?nom";
+ select distinct ?Ressource where {
+?Ressource foaf:name ?nom ;
+           rdf:type ?profession;
+           dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood;
+           dbpedia-owl:wikiPageWikiLink dbpedia-fr:Cinéma .
+FILTER (?profession like \"*Actor*\") .
+}
+ORDER BY ?Ressource";
 $list_actor = sparql_query( $sparql );
 if( !$list_actor ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 $fields = sparql_field_array( $list_actor );
@@ -23,7 +23,8 @@ while( $row = sparql_fetch_array( $list_actor ) )
 print "<tr>";
 foreach( $fields as $field )
 {
-echo "<td><a href=\"" . $__url_wiki . utf8_decode("$row[$field]") ."\"> ".utf8_decode("$row[$field]"). "</td>";
+$nom_actor = utf8_decode(substr("$row[$field]",strrpos("$row[$field]","/"))); 
+echo "<td><a href=\"" . $__url_wiki . $nom_actor ."\"> ".$nom_actor. "</td>";
 }
 print "</tr>";
 }
