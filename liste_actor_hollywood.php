@@ -16,7 +16,7 @@ select ?Ressource where {
 ?Ressource foaf:name ?nom ;
 rdf:type ?profession;
 dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood  .
-FILTER (?profession like "*Actor*") .
+FILTER (?profession like \"*Actor*\") .
 }
 ORDER BY ?Ressource";
 
