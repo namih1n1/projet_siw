@@ -1,13 +1,13 @@
 <?php
 include("./includes/header.php");
 $sparql = "
-	select distinct ?nom where {
-		?Ressource dbpprop:occupation ?occupation .
-		?Ressource dbpedia-owl:deathDate ?mort .
-		?Ressource rdfs:label ?nom .
-		FILTER(?occupation like \"*Actor*\") .
-		FILTER(?mort like \"*-".$__today."\") .
-		FILTER langmatches(lang(?nom),\"en\")
+	select ?nom	where {
+   		?Ressource foaf:name ?nom .
+   		?Ressource prop-fr:profession ?profession .
+   		?Ressource dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood .
+   		?Ressource dbpedia-owl:wikiPageWikiLink dbpedia-fr:Cinéma .
+   		
+  		FILTER (?profession like \"*Acteur*\") .
 	}";
 	
 $result = sparql_query( $sparql );
