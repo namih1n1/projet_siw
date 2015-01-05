@@ -10,5 +10,5 @@ sparql_ns("dbpedia-owl","http://dbpedia.org/ontology/");
 
 // Déclaration des variables 
 // $__today = date("m-d");
-$__url_wiki = "http://wikipedia.org/wiki/";
+$__url_wiki = "http://fr.wikipedia.org/wiki/";
 ?>
