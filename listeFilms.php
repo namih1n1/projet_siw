@@ -1,6 +1,6 @@
 <?php
 include("./includes/header.php");
-$actor = $_POST['actor'];
+$actor = $_GET['actor'];
 
 $sparql = "
 select distinct ?titres where {
