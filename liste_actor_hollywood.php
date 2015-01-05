@@ -3,10 +3,10 @@ include("./includes/header.php");
 $sparql = "
  select ?nom where {
  ?Ressource foaf:name ?nom .
- ?Ressource prop-fr:profession ?profession .
+ ?Ressource rdf:type ?profession .
  ?Ressource dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood .
  ?Ressource dbpedia-owl:wikiPageWikiLink dbpedia-fr:Cinéma .
- FILTER (?profession like \"*Acteur*\") .
+ FILTER (?profession like \"*Actor*\") .
  }
  ORDER BY ?nom";
 $list_actor = sparql_query( $sparql );
