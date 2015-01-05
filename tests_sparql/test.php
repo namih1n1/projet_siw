@@ -1,5 +1,5 @@
 <?php
-include("./includes/header.php");
+include("../includes/header.php");
 $sparql = "
 	select ?nom	where {
    		?Ressource foaf:name ?nom .
