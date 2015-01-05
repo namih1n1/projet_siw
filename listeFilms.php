@@ -18,7 +18,7 @@ print "<tr>";
 // Entête
 // foreach( $fields as $field ) { print "<th>$field</th>"; }
 print "</tr>";
-while( $row = sparql_fetch_array( $list_actor ) )
+while( $row = sparql_fetch_array( $list_films ) )
 {
 print "<tr>";
 foreach( $fields as $field )
