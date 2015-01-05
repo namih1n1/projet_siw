@@ -1,7 +1,7 @@
 <?php
 // Importation de la librairie SPARQL et connexion à la base
 require_once( "sparqllib.php" );
-$db = sparql_connect( "http://dbpedia.org/sparql" );
+$db = sparql_connect( "http://fr.dbpedia.org/sparql" );
 
 if( !$db ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 
