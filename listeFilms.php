@@ -6,7 +6,7 @@ $sparql = "
 select distinct ?titres where {
 ?Ressource dbpedia-owl:starring ?actor ;
 rdfs:label ?titres
-FILTER (?actor like \"\*".$actor."\*\") .
+FILTER (?actor like \"*".$actor."*\") .
 FILTER langmatches(lang(?titres),\"fr\") .
 }";
 $list_films = sparql_query( $sparql );
