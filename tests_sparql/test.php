@@ -8,7 +8,8 @@ $sparql = "
    		?Ressource dbpedia-owl:wikiPageWikiLink dbpedia-fr:Cinéma .
    		
   		FILTER (?profession like \"*Acteur*\") .
-	}";
+	}
+	ORDER BY ?nom";
 	
 $result = sparql_query( $sparql );
 if( !$result ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
