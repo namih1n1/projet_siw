@@ -1,22 +1,14 @@
 <?php
 include("./includes/header.php");
-/*
+
 $sparql = "
  select distinct ?Ressource where {
 ?Ressource foaf:name ?nom ;
-           rdf:type ?profession;
-           dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood;
-           dbpedia-owl:wikiPageWikiLink dbpedia-fr:Cinéma .
-FILTER (?profession like \"*Actor*\") .
-}
-ORDER BY ?Ressource";
-*/
-$sparql = "
-select ?Ressource where {
-?Ressource foaf:name ?nom ;
 rdf:type ?profession;
-dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood  .
+dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood  ;
+dbpedia-owl:wikiPageWikiLink ?autrecritere .
 FILTER (?profession like \"*Actor*\") .
+FILTER (?autrecritere like \"*Acteur*\")
 }
 ORDER BY ?Ressource";
 
