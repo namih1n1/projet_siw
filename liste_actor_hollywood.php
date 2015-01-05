@@ -1,5 +1,6 @@
 <?php
 include("./includes/header.php");
+/*
 $sparql = "
  select distinct ?Ressource where {
 ?Ressource foaf:name ?nom ;
@@ -9,6 +10,16 @@ $sparql = "
 FILTER (?profession like \"*Actor*\") .
 }
 ORDER BY ?Ressource";
+*/
+$sparql = "
+select ?Ressource where {
+?Ressource foaf:name ?nom ;
+rdf:type ?profession;
+dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood  .
+FILTER (?profession like "*Actor*") .
+}
+ORDER BY ?Ressource";
+
 $list_actor = sparql_query( $sparql );
 if( !$list_actor ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 $fields = sparql_field_array( $list_actor );
