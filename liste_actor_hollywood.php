@@ -10,7 +10,7 @@ $sparql = "
  }
  ORDER BY ?nom";
 $list_actor = sparql_query( $sparql );
-if( !$result ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
+if( !$list_actor ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 $fields = sparql_field_array( $list_actor );
 print sparql_num_rows( $list_actor )." acteurs d'Hollywood.</p>";
 print "<table class='example_table'>";
@@ -18,7 +18,7 @@ print "<tr>";
 // Entête
 // foreach( $fields as $field ) { print "<th>$field</th>"; }
 print "</tr>";
-while( $row = sparql_fetch_array( $result ) )
+while( $row = sparql_fetch_array( $list_actor ) )
 {
 print "<tr>";
 foreach( $fields as $field )
