@@ -21,9 +21,9 @@ while( $row = sparql_fetch_array( $list_films ) )
                           'titre'   => $row['titres'],
                           'actors'  => array()
                     );
-  $resource = "<http://fr.dbpedia.org/resource/" . $row['titres'] . ">";
+  $resource = "http://fr.dbpedia.org/resource/" . $row['titres'];
   echo "Resource = ".$resource . "\n";
-  echo "Resource traitée = " . htmlspecialchars_decode($resource,ENT_XML1) ."\n";
+  echo "Resource traitée = " . htmlspecialchars_decode('&lt;'.$resource.'&gt;') ."\n";
   exit();
   $sparql_2 = " select ?actors where {
     ".html_entity_decode($resource) . "
