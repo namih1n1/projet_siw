@@ -54,7 +54,10 @@ foreach($array_result as $tb) {
 echo "</table>";
 echo "
     <script language=\"javascript\">
-        alert(document.getElementsByClassName('show_img_actor'));
+        // HTMLCOllection :
+        // alert(document.getElementsByClassName('show_img_actor'));
+        var tb_img = document.getElementsByClassName('show_img_actor');
+        alert(tb_img[0].innerHTML);
         for(var elt in document.getElementsByClassName('show_img_actor')){
             if (elt.click()) {
                 alert('Yann Hoffmann');
