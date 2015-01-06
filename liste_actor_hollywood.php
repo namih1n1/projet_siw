@@ -18,11 +18,12 @@ $list_actor = sparql_query( $sparql );
 if( !$list_actor ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 $fields = sparql_field_array( $list_actor );
 
+print_r(sparql_fetch_array( $list_actor ));
 while( $row = sparql_fetch_array( $list_actor ) )
 {
    foreach( $fields as $field )
    {
-    echo $row[$field]. "\n";
+    // echo $row[$field]. "\n";
     /*
       $nom_actor = utf8_decode(substr("$row[$field]",strrpos("$row[$field]","/")+1)); 
       echo "<td><a href=\"" . $__url_wiki . $nom_actor ."\"> ".$nom_actor. "</a> -- <a href=\"./listeFilms.php?actor=$nom_actor\" >Voir ses films</a></td>";
