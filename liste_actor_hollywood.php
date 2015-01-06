@@ -37,7 +37,7 @@ foreach($array_result as $tb) {
     echo "
     <tr>
         <td><a href=\"" . $__url_wiki . $tb['nom'] . "\">" . $tb['nom'] . " -- <a href=\"./listeFilms.php?actor=" . $tb['nom'] ."\" >Voir ses films</a></td>
-        <td><img src=\"" .$tb['img'] .  "\" alt=\"" . $tb['nom'] . "\" height='42px' width='42px'/></td>
+        <td><div class=\"img-actor\"><img src=\"" .$tb['img'] .  "\" alt=\"" . $tb['nom'] . "\" height='100px' width='100px'/></div></td>
         <td>" .$tb['birth']. "</td>
     </tr>";   
 }
