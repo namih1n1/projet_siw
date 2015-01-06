@@ -1,6 +1,15 @@
 <?php
 include("./includes/header.php");
 
+echo "
+<style>
+.show_img_actor:hover {
+    text_decoration:underline;    
+    color:blue;
+}
+</style>
+";
+
 $sparql = "
 select distinct ?Ressource ?birth ?image
 where {
@@ -37,11 +46,21 @@ foreach($array_result as $tb) {
     echo "
     <tr>
         <td><a href=\"" . $__url_wiki . $tb['nom'] . "\">" . $tb['nom'] . " -- <a href=\"./listeFilms.php?actor=" . $tb['nom'] ."\" >Voir ses films</a></td>
-        <td><div class=\"img-actor\"><img src=\"" .$tb['img'] .  "\" alt=\"" . $tb['nom'] . "\" height='100px' width='100px'/></div></td>
+        <td><span class=\"show_img_actor\">Voir photo</span><div class=\"img-actor\" style=\"display:none;\"><img src=\"" .$tb['img'] .  "\" alt=\"" . $tb['nom'] . "\" height='100px' width='100px'/></div></td>
         <td>" .$tb['birth']. "</td>
     </tr>";   
 }
 echo "</table>";
+echo "
+    <script language=\"javascript\">
+        if (document.getElementsByClassName('show_img_actor').click(
+            show();
+            )
+        ) {
+        }
+    </script>";
+
+
 /*
 print sparql_num_rows( $list_actor )." acteurs d'Hollywood.</p>";
 print "<table class='example_table'>";
