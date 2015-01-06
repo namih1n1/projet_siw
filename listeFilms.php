@@ -21,9 +21,10 @@ while( $row = sparql_fetch_array( $list_films ) )
                           'titre'   => $row['titres'],
                           'actors'  => array()
                     );
-  $sparql_2 = "
-    select ?actors where {
-    ".html_entity_decode('<')."http://fr.dbpedia.org/resource/".$row['titres'].html_entity_decode('>')."  dbpedia-owl:starring ?actors ;
+  $resource = "<http://fr.dbpedia.org/resource/" . $row['titres'] . ">";
+  $sparql_2 = " select ?actors where {
+    ".html_entity_decode($resource) . "
+      dbpedia-owl:starring ?actors ;
       prop-fr:titre ?titre .
     FILTER langmatches(lang(?titre),\"fr\") .
   }
