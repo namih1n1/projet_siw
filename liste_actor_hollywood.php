@@ -17,7 +17,7 @@ ORDER BY ?Ressource";
 $list_actor = sparql_query( $sparql );
 if( !$list_actor ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 $fields = sparql_field_array( $list_actor );
-$array_result[] = array();
+$array_result = array();
 while( $row = sparql_fetch_array( $list_actor ) )
 {
     $array_result[]['nom'] = utf8_decode(substr($row['Ressource'],strrpos($row['Ressource'],"/")+1)); 
