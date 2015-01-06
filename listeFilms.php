@@ -5,7 +5,7 @@ $actor = $_GET['actor'];
 $sparql = "
 select distinct ?titres where {
 ?Ressource dbpedia-owl:starring ?actor ;
-prop-fr:titre ?titres
+foaf:name prop-fr:titre ?titres .
 FILTER (?actor like \"*".$actor."*\") .
 FILTER langmatches(lang(?titres),\"fr\") .
 }";
