@@ -24,14 +24,14 @@ while( $row = sparql_fetch_array( $list_actor ) )
     $array_result[]['birth'] = $row['birth'];
 }
 // print_r($array_result);
-
+var_dump($array_result);
 echo "<p>" .count($array_result) . " acteurs d'Hollywood.</p>";
 echo "<table class='actor_table'>
         <tr><th>Acteurs</th><th>Date de naissance</th></tr>
 ";
+
 foreach($array_result as $key => $tb) {
     //var_dump($tb);
-    echo $tb['nom'] ."\n";
     /*
     echo "
     <tr>
