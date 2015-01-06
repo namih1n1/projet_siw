@@ -20,7 +20,7 @@ $fields = sparql_field_array( $list_actor );
 
 while( $row = sparql_fetch_array( $list_actor ) )
 {
-print_r($row[$field]. "\n");
+print_r($row. "\n");
    foreach( $fields as $field )
    {
     // echo $row[$field]. "\n";
