@@ -15,13 +15,11 @@ $sparql = "
 select distinct ?Ressource ?birth ?image
 where {
     ?Ressource foaf:name ?o ;
-               rdf:type ?profession;
+               prop-fr:profession ?profession;
                dbpedia-owl:birthDate ?birth;
                foaf:depiction ?image;
-               dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood ;
-               dbpedia-owl:wikiPageWikiLink ?autrecritere .
-FILTER (?profession like \"*Actor*\") .
-FILTER (?autrecritere like \"*Acteur*\") .
+               dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood .
+FILTER (?profession like \"*Acteur*\") .
 FILTER (?birth > \"1920-01-01\"^^xsd:date) .
 }
 ORDER BY ?Ressource
