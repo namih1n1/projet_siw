@@ -54,6 +54,7 @@ foreach($array_result as $tb) {
 echo "</table>";
 echo "
     <script language=\"javascript\">
+        alert(document.getElementsByClassName('show_img_actor'));
         for(var elt in document.getElementsByClassName('show_img_actor')){
             if (elt.click()) {
                 alert('Yann Hoffmann');
