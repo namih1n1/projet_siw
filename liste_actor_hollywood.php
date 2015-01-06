@@ -20,7 +20,7 @@ $fields = sparql_field_array( $list_actor );
 $array_result = array();
 while( $row = sparql_fetch_array( $list_actor ) )
 {
-    array_result[] =  array('nom'   => utf8_decode(substr($row['Ressource'],strrpos($row['Ressource'],"/")+1)),
+    $array_result[] =  array('nom'   => utf8_decode(substr($row['Ressource'],strrpos($row['Ressource'],"/")+1)),
                             'birth' => $row['birth']
                         );
 }
