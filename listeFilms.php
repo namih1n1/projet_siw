@@ -18,7 +18,7 @@ $cpt = 0;
 while( $row = sparql_fetch_array( $list_films ) )
 {
   $array_result[] = array('id'      => $cpt,
-                          'titre'   => $row['titres']
+                          'titre'   => $row['titres'],
                           'actors'  => array()
                     );
   $sparql_2 = "
