@@ -16,10 +16,12 @@ select distinct ?Ressource ?birth ?image
 where {
     ?Ressource foaf:name ?o ;
                prop-fr:profession ?profession;
+               rdf:type ?type;
                dbpedia-owl:birthDate ?birth;
-               foaf:depiction ?image;
-               dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood .
-FILTER (?profession like \"*Acteur*\") .
+               foaf:depiction ?image .
+FILTER regex(?type,\"Actor\",\"i\") .
+FILTER regex(?profession,\"Acteur\",\"i\") .
+FILTER (!regex(?profession, \"porn\",\"i\")) . 
 FILTER (?birth > \"1920-01-01\"^^xsd:date) .
 }
 ORDER BY ?Ressource
