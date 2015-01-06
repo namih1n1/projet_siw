@@ -47,23 +47,17 @@ foreach($array_result as $tb) {
     echo "
     <tr>
         <td><a href=\"" . $__url_wiki . $tb['nom'] . "\">" . $tb['nom'] . " -- <a href=\"./listeFilms.php?actor=" . $tb['nom'] ."\" >Voir ses films</a></td>
-        <td><span class=\"show_img_actor\">Voir photo</span><div class=\"img_actor\" style=\"display:none;\"><img src=\"" .$tb['img'] .  "\" alt=\"" . $tb['nom'] . "\" height='100px' width='100px'/></div></td>
+        <td><div class=\"td_img_actor\"><span class=\"show_img_actor\">Voir photo</span><span class=\"img_actor\" style=\"display:none;\"><img src=\"" .$tb['img'] .  "\" alt=\"" . $tb['nom'] . "\" height='100px' width='100px'/></span></div></td>
         <td>" .$tb['birth']. "</td>
     </tr>";   
 }
 echo "</table>";
 echo "
     <script language=\"javascript\">
-        // HTMLCOllection :
-        // alert(document.getElementsByClassName('show_img_actor'));
-        var tb_img = document.getElementsByClassName('show_img_actor');
+        var tb_img = document.getElementsByClassName('td_img_actor');
+        alert(tb_img);
         alert(tb_img[0].innerHTML);
-        for(var elt in document.getElementsByClassName('show_img_actor')){
-            if (elt.click()) {
-                alert('Yann Hoffmann');
-                elt.getElementByClassName('img_actor').show();
-            }
-        }
+        
     </script>";
 
 
