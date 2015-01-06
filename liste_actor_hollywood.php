@@ -18,13 +18,14 @@ $list_actor = sparql_query( $sparql );
 if( !$list_actor ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 $fields = sparql_field_array( $list_actor );
 $array_result = array();
-while( $row = sparql_fetch_assoc( $list_actor ) )
+while( $row = sparql_fetch_array( $list_actor ) )
 {
-    //array_result['nom'] = utf8_decode(substr("$row['$field'Ressource']",strrpos("$row['$field'Ressource']","/")+1));
-    //array_result['birth'] = $row['birth'];
- print_r($row);
+    array_result['nom'] = utf8_decode(substr("$row['$field'Ressource']",strrpos("$row['$field'Ressource']","/")+1));
+    array_result['birth'] = $row['birth'];
+ //print_r($row);
 
 }
+print_r($array_result);
 /*
 print sparql_num_rows( $list_actor )." acteurs d'Hollywood.</p>";
 print "<table class='example_table'>";
