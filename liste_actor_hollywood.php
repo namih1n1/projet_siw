@@ -24,21 +24,17 @@ while( $row = sparql_fetch_array( $list_actor ) )
                             'birth' => $row['birth']
                         );
 }
-var_dump($array_result);
 echo "<p>" .count($array_result) . " acteurs d'Hollywood.</p>";
 echo "<table class='actor_table'>
         <tr><th>Acteurs</th><th>Date de naissance</th></tr>
 ";
 
-foreach($array_result as $key => $tb) {
-    //var_dump($tb);
-    /*
+foreach($array_result as $tb) {
     echo "
     <tr>
         <td><a href=\"" . $__url_wiki . $tb['nom'] . "\">" . $tb['nom'] . " -- <a href=\"./listeFilms.php?actor=" . $tb['nom'] ."\" >Voir ses films</a></td>
         <td>" .$tb['birth']. "</td>
     </tr>";   
-    */
 }
 echo "</table>";
 /*
