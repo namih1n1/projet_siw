@@ -2,17 +2,20 @@
 include("./includes/header.php");
 
 $sparql = "
-select distinct ?Ressource ?birth 
+select distinct ?Ressource ?birth ?image
 where {
     ?Ressource foaf:name ?o ;
                rdf:type ?profession;
                dbpedia-owl:birthDate ?birth;
+               foaf:depiction ?image;
                dbpedia-owl:wikiPageWikiLink dbpedia-fr:Hollywood ;
                dbpedia-owl:wikiPageWikiLink ?autrecritere .
 FILTER (?profession like \"*Actor*\") .
-FILTER (?autrecritere like \"*Acteur*\")
+FILTER (?autrecritere like \"*Acteur*\") .
+FILTER (?birth > \"1920-01-01\"^^xsd:date) .
 }
-ORDER BY ?Ressource";
+ORDER BY ?Ressource
+";
 
 $list_actor = sparql_query( $sparql );
 if( !$list_actor ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
@@ -20,19 +23,21 @@ $fields = sparql_field_array( $list_actor );
 $array_result = array();
 while( $row = sparql_fetch_array( $list_actor ) )
 {
-    $array_result[] =  array('nom'   => utf8_decode(substr($row['Ressource'],strrpos($row['Ressource'],"/")+1)),
-                            'birth' => $row['birth']
+    $array_result[] =  array(   'nom'   => utf8_decode(substr($row['Ressource'],strrpos($row['Ressource'],"/")+1)),
+                                'img'   => $row['image'],
+                                'birth' => $row['birth']
                         );
 }
 echo "<p>" .count($array_result) . " acteurs d'Hollywood.</p>";
 echo "<table class='actor_table'>
-        <tr><th>Acteurs</th><th>Date de naissance</th></tr>
+        <tr><th>Acteurs</th><th>Image</th><th>Date de naissance</th></tr>
 ";
 
 foreach($array_result as $tb) {
     echo "
     <tr>
         <td><a href=\"" . $__url_wiki . $tb['nom'] . "\">" . $tb['nom'] . " -- <a href=\"./listeFilms.php?actor=" . $tb['nom'] ."\" >Voir ses films</a></td>
+        <td><img src=\"" .$tb['img'] .  "\" alt=\" " . $tb['nom'] . ""\"/></td>
         <td>" .$tb['birth']. "</td>
     </tr>";   
 }
