@@ -22,10 +22,21 @@ while( $row = sparql_fetch_array( $list_actor ) )
 {
     $array_result[]['nom'] = utf8_decode(substr($row['Ressource'],strrpos($row['Ressource'],"/")+1)); 
     $array_result[]['birth'] = $row['birth'];
- //print_r($row);
-
 }
-print_r($array_result);
+// print_r($array_result);
+
+echo "<p>" .count($array_result) . " acteurs d'Hollywood.</p>";
+echo "<table class='actor_table'>
+        <tr><th>Acteurs</th><th>Date de naissance</th></tr>
+";
+foreach($array_result as $tb) {
+    echo "
+    <tr>
+        <td><a href=\"" . $__url_wiki . $tb['nom'] . "\">" . $tb['nom'] . " -- <a href=\"./listeFilms.php?actor=" . $tb['nom'] ."\" >Voir ses films</a></td>
+        <td>" .$tb['birth']. "</td>
+    </tr>";   
+}
+echo "</table>";
 /*
 print sparql_num_rows( $list_actor )." acteurs d'Hollywood.</p>";
 print "<table class='example_table'>";
