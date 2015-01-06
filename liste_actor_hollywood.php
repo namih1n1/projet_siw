@@ -6,6 +6,7 @@ echo "
 .show_img_actor:hover {
     text_decoration:underline;    
     color:blue;
+    cursor:pointer;
 }
 </style>
 ";
@@ -53,10 +54,8 @@ foreach($array_result as $tb) {
 echo "</table>";
 echo "
     <script language=\"javascript\">
-        if (document.getElementsByClassName('show_img_actor').click(
-            show();
-            )
-        ) {
+        if (document.getElementsByClassName('show_img_actor').click()) {
+            alert('Toto');
         }
     </script>";
 
