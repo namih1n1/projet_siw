@@ -13,7 +13,6 @@ function sparql_query( $sparql, $db = null ) { return _sparql_a_connection( $db 
 function sparql_errno( $db = null ) { return _sparql_a_connection( $db )->errno(); }
 function sparql_error( $db = null ) { return _sparql_a_connection( $db )->error(); }
 function sparql_fetch_array( $result ) { return $result->fetch_array(); }
-function sparql_fetch_assoc( $result ) { return $result->fetch_assoc(); }
 function sparql_num_rows( $result ) { return $result->num_rows(); }
 function sparql_field_array( $result ) { return $result->field_array(); }
 function sparql_field_name( $result, $i ) { return $result->field_name( $i ); }
