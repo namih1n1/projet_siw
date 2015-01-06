@@ -33,10 +33,13 @@ $fields = sparql_field_array( $list_actor );
 $array_result = array();
 while( $row = sparql_fetch_array( $list_actor ) )
 {
-    $array_result[] =  array(   'nom'   => utf8_decode(substr($row['Ressource'],strrpos($row['Ressource'],"/")+1)),
+    $cpt = 0;
+    $array_result[] =  array(   'id'    => $cpt,
+                                'nom'   => utf8_decode(substr($row['Ressource'],strrpos($row['Ressource'],"/")+1)),
                                 'img'   => $row['image'],
                                 'birth' => $row['birth']
                         );
+    $cpt++;
 }
 echo "<p>" .count($array_result) . " acteurs d'Hollywood.</p>";
 echo "<table class='actor_table'>
@@ -47,17 +50,16 @@ foreach($array_result as $tb) {
     echo "
     <tr>
         <td><a href=\"" . $__url_wiki . $tb['nom'] . "\">" . $tb['nom'] . " -- <a href=\"./listeFilms.php?actor=" . $tb['nom'] ."\" >Voir ses films</a></td>
-        <td><div class=\"td_img_actor\"><span class=\"show_img_actor\">Voir photo</span><span class=\"img_actor\" style=\"display:none;\"><img src=\"" .$tb['img'] .  "\" alt=\"" . $tb['nom'] . "\" height='100px' width='100px'/></span></div></td>
+        <td><div class=\"td_img_actor\"><span class=\"show_img_actor\" onclick=\"showImgActor(". $tb['id'] .")\">Voir photo</span><span id=\"img_actor_".$tb['id']."\" style=\"display:none;\"><img src=\"" .$tb['img'] .  "\" alt=\"" . $tb['nom'] . "\" height='100px' width='100px'/></span></div></td>
         <td>" .$tb['birth']. "</td>
     </tr>";   
 }
 echo "</table>";
 echo "
     <script language=\"javascript\">
-        var tb_img = document.getElementsByClassName('td_img_actor');
-        alert(tb_img);
-        alert(tb_img[0].innerHTML);
-        
+    function showImgActor(id) {
+        document.getElementById('img_actor_'+id).style.display = \"block\";
+    }  
     </script>";
 
 
