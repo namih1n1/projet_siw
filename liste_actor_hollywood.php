@@ -31,15 +31,15 @@ $list_actor = sparql_query( $sparql );
 if( !$list_actor ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 $fields = sparql_field_array( $list_actor );
 $array_result = array();
+$cpt = 0;
 while( $row = sparql_fetch_array( $list_actor ) )
 {
-    $cpt = 0;
     $array_result[] =  array(   'id'    => $cpt,
                                 'nom'   => utf8_decode(substr($row['Ressource'],strrpos($row['Ressource'],"/")+1)),
                                 'img'   => $row['image'],
                                 'birth' => $row['birth']
                         );
-    $cpt = $cpt+1;
+    $cpt++;
 }
 echo "<p>" .count($array_result) . " acteurs d'Hollywood.</p>";
 echo "<table class='actor_table'>
