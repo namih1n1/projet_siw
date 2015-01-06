@@ -18,7 +18,7 @@ $list_actor = sparql_query( $sparql );
 if( !$list_actor ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 $fields = sparql_field_array( $list_actor );
 
-print_r(sparql_fetch_array( $list_actor ));
+print_r($list_actor);
 while( $row = sparql_fetch_array( $list_actor ) )
 {
    foreach( $fields as $field )
