@@ -39,7 +39,7 @@ while( $row = sparql_fetch_array( $list_actor ) )
                                 'img'   => $row['image'],
                                 'birth' => $row['birth']
                         );
-    $cpt++;
+    $cpt = $cpt+1;
 }
 echo "<p>" .count($array_result) . " acteurs d'Hollywood.</p>";
 echo "<table class='actor_table'>
