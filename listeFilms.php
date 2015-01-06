@@ -23,7 +23,7 @@ while( $row = sparql_fetch_array( $list_films ) )
                     );
   $resource = "http://fr.dbpedia.org/resource/" . $row['titres'];
   print "&lt;$resource&gt;"."\n\n";
-  echo "\<".$resource."\>";
+  echo "&lt;$resource&gt;"."\n\n";
   
   exit();
   $sparql_2 = " select ?actors where {
