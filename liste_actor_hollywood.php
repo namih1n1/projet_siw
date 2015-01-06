@@ -50,7 +50,7 @@ foreach($array_result as $tb) {
     echo "
     <tr>
         <td><a href=\"" . $__url_wiki . $tb['nom'] . "\">" . $tb['nom'] . " -- <a href=\"./listeFilms.php?actor=" . $tb['nom'] ."\" >Voir ses films</a></td>
-        <td><div class=\"td_img_actor\"><span class=\"show_img_actor\" onclick=\"showImgActor(". $tb['id'] .")\">Voir photo</span><span id=\"img_actor_".$tb['id']."\" style=\"display:none;\"><img src=\"" .$tb['img'] .  "\" alt=\"" . $tb['nom'] . "\" height='100px' width='100px'/></span></div></td>
+        <td><div class=\"td_img_actor\"><span id=\"show_img_actor_". $tb['id'] ."\" onclick=\"showImgActor(". $tb['id'] .")\">Voir photo</span><span id=\"img_actor_".$tb['id']."\" style=\"display:none;\"><img src=\"" .$tb['img'] .  "\" alt=\"" . $tb['nom'] . "\" height='100px' width='100px'/></span></div></td>
         <td>" .$tb['birth']. "</td>
     </tr>";   
 }
@@ -59,6 +59,7 @@ echo "
     <script language=\"javascript\">
     function showImgActor(id) {
         document.getElementById('img_actor_'+id).style.display = \"block\";
+        document.getElementById('show_img_actor_'+id).style.display = \"none\";
     }  
     </script>";
 
