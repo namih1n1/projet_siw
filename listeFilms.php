@@ -7,7 +7,7 @@ select distinct ?titres where {
 ?Ressource dbpedia-owl:starring ?actor ;
 foaf:name ?titres .
 FILTER (?actor like \"*".$actor."*\") .
-FILTER langmatches(lang(?titres),\"fr\") .
+FILTER langmatches(lang(?titres),"fr") .
 }";
 
 $list_films = sparql_query( $sparql );
