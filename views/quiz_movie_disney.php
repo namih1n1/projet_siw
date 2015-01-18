@@ -19,7 +19,7 @@ include("../includes/header.php");
 	$onedisney = $sth_onedisney->fetchAll();
 	
 	?>
-	<div class="question_quiz">Quiz sur les films dse studios Disney</div>
+	<div class="question_quiz">Quiz sur les films des studios Disney</div>
 
 	<?php 
 	if (substr($onedisney[0]['dm_titre'],0,strpos($onedisney[0]['dm_titre'],"(film")) != false)
