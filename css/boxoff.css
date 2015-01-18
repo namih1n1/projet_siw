@@ -305,3 +305,15 @@ table tr:hover td {
 	margin: auto;
 	width: 430px;
 }
+
+.recherche{
+text-align: center;
+font-family: 'Gabriela', serif;
+color: black;
+
+}
+
+.recherche p {
+font-size: 24px;
+
+}

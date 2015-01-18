@@ -6,7 +6,7 @@ $sth_films = $dbh->prepare("SELECT * FROM movies WHERE mov_titre LIKE \"".$l_mov
 $sth_films->execute();
 $films = $sth_films->fetchAll();
 
-echo "<h2>" .count($films) . " films commencant par " . $l_movie . ".</h2>";
+echo "<div class = 'tabletitle'><h2>" .count($films) . " films commencant par " . $l_movie . ".</h2></div>";
 echo "<table>
 	<thead>
         <tr>
