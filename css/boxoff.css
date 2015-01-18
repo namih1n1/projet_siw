@@ -77,9 +77,9 @@ max-height:15em;
 }
 /* background des liens menus */
 #menu li:first-child{
-background-color: #65537A;
-background-image:-webkit-linear-gradient(top, #65537A 0%, #2A2333 100%);
-background-image:linear-gradient(to bottom, #65537A 0%, #2A2333 100%);
+background-color: #C75BF2;
+background-image:-webkit-linear-gradient(top, #C75BF2 0%, #65537A 100%);
+background-image:linear-gradient(to bottom, #C75BF2 0%, #65537A 100%);
 }
 #menu li:nth-child(2){
 background-color: #729EBF;
@@ -91,6 +91,11 @@ background-color: #F6AD1A;
 background-image:-webkit-linear-gradient(top, #F6AD1A 0%, #9F391A 100%);
 background-image:linear-gradient(to bottom, #F6AD1A 0%, #9F391A 100%);
 }
+#menu li:nth-child(4){
+background-color: #E75050;
+background-image:-webkit-linear-gradient(top, #E75050 0%, #812727 100%);
+background-image:linear-gradient(to bottom, #E75050 0%, #812727 100%);
+}
 #menu li:last-child{
 background-color: #CFFF6A;
 background-image:-webkit-linear-gradient(top, #CFFF6A 0%, #677F35 100%);
@@ -98,13 +103,16 @@ background-image:linear-gradient(to bottom, #CFFF6A 0%, #677F35 100%);
 }
 
 #menu li:first-child:hover{
-background:#65537A;
+background:#C75BF2;
 }
 #menu li:nth-child(2):hover{
 background:#729EBF;
 }
 #menu li:nth-child(3):hover{
 background:#F6AD1A;
+}
+#menu li:nth-child(4):hover{
+background:#E75050;
 }
 #menu li:last-child:hover{
 background:#CFFF6A;
@@ -115,7 +123,7 @@ text-decoration:none;
 display:block;
 padding:8px 32px;
 color:#fff;
-font-family:arial;
+font-family: 'Gabriela', serif;
 }
 #menu ul a{
 padding:8px 0;
@@ -125,6 +133,12 @@ padding:8px 0;
 color:#000;
 }
 
+.tabletitle h2{
+	color: #1e1e1e;
+    font-family: 'Gabriela', serif;
+    letter-spacing: .10em;
+    text-align: center;
+}
 table a:link {
 	color: #666;
 	font-weight: bold;
@@ -141,7 +155,7 @@ table a:hover {
 	text-decoration:underline;
 }
 table {
-	font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Gabriela', serif;
 	color:#666;
 	font-size:12px;
 	text-shadow: 1px 1px 0px #fff;
@@ -218,4 +232,48 @@ table tr:hover td {
 	background: #f2f2f2;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
 	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+}
+
+.quizz{
+	text-align: center;
+	font-family: 'Gabriela', serif;
+	color: black;
+	font-size: 28px;
+}
+
+.question_quiz{
+	text-align: center;
+	font-family: 'Gabriela', serif;
+	color: black;
+	font-size: 28px;
+	margin:1em;
+
+}
+
+.quizzidentite{
+	text-align:center;
+	font-family: 'Gabriela', serif;
+	color: black;
+	font-size: 28px;
+}
+
+.propositions{
+	text-align:center;
+	font-family: 'Gabriela', serif;
+	color: black;
+	font-size: 22px;
+}
+
+.listequiz{
+	text-align:center;
+	font-family: 'Gabriela', serif;
+	color: black;
+	font-size: 22px;
+	margin: auto;
+	width: 430px;
+}
+
+.listequiz li{
+	list-style-type: disc;
+
 }

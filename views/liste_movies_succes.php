@@ -15,7 +15,7 @@ $sth_last->execute();
 $last_annee = $sth_last->fetchAll();
 if( !$last_annee ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
 
-echo "<h2>Les " .count($result) . " films du box-office mondial, jusqu'&agrave; " . $last_annee[0]['last'] . ".</h2>";
+echo "<div class = 'tabletitle'><h2>Les " .count($result) . " films du box-office mondial, jusqu'&agrave; " . $last_annee[0]['last'] . ".</h2></div>";
 echo "<table class='boxoffice_table'>
 		<thead>
 			<tr><th>Film</th><th>Image</th><th>Ann&eacute;e</th><th>Acteurs</th></tr>

@@ -9,7 +9,7 @@ include("../includes/header.php");
 	if( !$quizmovie ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
 
 	?>
-	<div class=\"question_quiz\">Quiz film </div>
+	<div class="question_quiz">Quiz sur les films</div>
 
 	<?php 
 	if (substr($quizmovie[0]['sm_titre'],0,strpos($quizmovie[0]['sm_titre'],"(film")) != false)
@@ -21,16 +21,21 @@ include("../includes/header.php");
 	else $traitement_titre1 = trim(utf8_decode($quizmovie[1]['sm_titre']));
 	
 	echo "
-		<p>Est-ce que \"" . $traitement_titre0 . "\" est sorti avant \"" . $traitement_titre1 . "\" ?</p>
+		<div class = \"quizz\">
+		<p>Est-ce que \"" . utf8_decode($quizmovie[0]['sm_titre']) . "\" est sorti avant \"" . utf8_decode($quizmovie[1]['sm_titre']) . "\" ?</p>
 		<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_no(". $quizmovie[0]['sm_annee'] .",". $quizmovie[1]['sm_annee'] .")\" />
 		<input id=\"answer_yes\" type=\"button\" name=\"yes\" value=\"OUI\" onclick=\"answer_yes(". $quizmovie[0]['sm_annee'] .",". $quizmovie[1]['sm_annee'] .")\" />
-		
+		</div>
+		<div class=\"propositions\">
 		<div class=\"reponse_quiz\"></div>
 		
 		<div id=\"choix\" style=\"display:none\">
 			<input type=\"button\" name=\"again\" value=\"SUIVANT\" onclick=\"again()\"  />
 			<input type=\"button\" name=\"other\" value=\"Autre quiz\" onclick=\"changerQuiz()\" />
-		</div>";
+		</div>
+		</div>
+		
+		";
 
 echo "<script language=\"javascript\">
 var juste 	= \"Vous avez raison !\";
