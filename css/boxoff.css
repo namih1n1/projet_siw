@@ -11,10 +11,14 @@ body{
     margin: 0;
 }
 
+.sitetitle{
+	background-color: #e7e5e4;
+}
+
 .sitetitle h1{
 	
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     margin-top: 0;
     margin-bottom: 0;
     color: #1e1e1e;
@@ -24,6 +28,15 @@ body{
     letter-spacing: .10em;
     text-align: center;
 	text-shadow: 10px 5px 5px #767676;
+
+}
+.sitetitle h2, .sitetitle h4{
+	
+    color: #1e1e1e;
+    background-color: #e7e5e4;
+    font-family: 'Gabriela', serif;
+    letter-spacing: .10em;
+    text-align: center;
 
 }
 
