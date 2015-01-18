@@ -22,8 +22,10 @@ if( !$last_annee ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
 
 echo "<h2>Les " .count($result) . " acteurs du box-office mondial, jusqu'&agrave; " . $last_annee[0]['last'] . ".</h2>";
 echo "<table class='boxoffice_table'>
+		<thead>
+			<tr><th>Acteur</th><th>Date de naissance</th><th>Photo</th><th>Nationalit&eacute;</th><th>Films au box-office</th></tr>
+		</thead>
 		<tbody>
-			<tr><th>Acteur</th><th>Date de naissance</th><th>Nationalit&eacute;</th><th>Photo</th><th>Films au box-office</th></tr>
 ";
 echo "<tr>
 				<td> - </td>
