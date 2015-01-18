@@ -1,6 +1,33 @@
 <?php
 include("../includes/header.php");
 
+// Récupération de 2 films à succès aléatoires
+	$sth_quizmovie = $dbh->prepare("SELECT * FROM success_movies ORDER BY RAND() LIMIT 2");
+	$sth_quizmovie->execute();
+	$quizmovie = $sth_quizmovie->fetchAll();
+
+	if( !$quizmovie ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
+
+	?>
+	<div class=\"question_quiz\">Quiz acteur </div>
+
+	<?php 
+	echo "
+		<p>Est-ce que \"" . utf8_decode($quizmovie[0]['sa_titre']) . "\" est sorti avant \"" . utf8_decode($quizmovie[1]['sa_titre']) . "\" ?</p>
+		<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_no(". $quizmovie[0]['sa_annee'] .",". $quizmovie[1]['sa_annee'] .")\" />
+		<input id=\"answer_yes\" type=\"button\" name=\"yes\" value=\"OUI\" onclick=\"answer_yes(". $quizmovie[0]['sa_annee'] .",". $quizmovie[1]['sa_annee'] .")\" />
+		
+		<div class=\"reponse_quiz\"></div>
+		
+		<div id=\"choix\" style=\"display:none\">
+			<input type=\"button\" name=\"again\" value=\"SUIVANT\" onclick=\"again()\"  />
+			<input type=\"button\" name=\"other\" value=\"Autre quiz\" onclick=\"changerQuiz()\" />
+			
+			<div id=\"other_quiz\" style=\"display:none\">
+				<a href=\"./quiz_films_old.php\" >Quiz sur les films &agrave; succ&egrave;s</a>
+				
+			</div>
+		</div>";
 
 echo "<script language=\"javascript\">
 var juste 	= \"Vous avez raison !\";
