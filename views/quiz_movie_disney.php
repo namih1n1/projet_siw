@@ -14,7 +14,7 @@ include("../includes/header.php");
 	}
 
 	// Récupération d'un film Disney aléatoirement
-	$sth_onedisney = $dbh->prepare("SELECT dm_titre, dm_annee FROM disney_movies ORDER BY RAND() LIMIT 1");
+	$sth_onedisney = $dbh->prepare("SELECT dm_titre, dm_annee, dm_url_image FROM disney_movies ORDER BY RAND() LIMIT 1");
 	$sth_onedisney->execute();
 	$onedisney = $sth_onedisney->fetchAll();
 	
@@ -31,13 +31,17 @@ include("../includes/header.php");
 		<table>
 			<thead><tr><th>Question</th><th>Propositions</th></tr></thead>
 			<tr>
-				<td style=\"font-size:20px; text-align:center;\">Quand est sorti le film Disney suivant ? <br />" .$traitement_titre."</td>
+				<td style=\"font-size:20px; text-align:center;\">Quand est sorti le film Disney suivant ? <br />" .$traitement_titre. "<br />";
+				if (($onedisney[0]['dm_url_image']) != "") {
+					echo "<img src=\"".utf8_decode($onedisney[0]['dm_url_image'])."\" width='200px' height='200px'/>";
+				}
+				echo "</td>
 				<td>
 					<table>";
 					foreach($yeardisney as $cle => $tb) {
 						if( ($cle % 8) == 0 ) echo "<tr>";
 
-						echo "<td><input id=\"".$tb['dm_annee']."\" type=\"button\" name=\"".$tb['dm_annee']."\" value=\"".$tb['dm_annee']."\" onclick=\"verif_year_disney(".$onedisney[0]['dm_annee'].",".$tb['dm_annee'].")\" /></td>";
+						echo "<td><input class=\"button_annee\" type=\"button\" name=\"".$tb['dm_annee']."\" value=\"".$tb['dm_annee']."\" onclick=\"verif_year_disney(".$onedisney[0]['dm_annee'].",".$tb['dm_annee'].")\" /></td>";
 						
 						if (($cle % 8) == 7 ) echo "</tr>";
 					}
@@ -57,11 +61,17 @@ include("../includes/header.php");
 		";
 
 echo "<script language=\"javascript\">
-var juste 	= \"Vous avez raison !\";
-var faux 	= \"Vous avez tort.\";
+var juste 	= \"Vous avez raison ! La r&eacute;ponse &eacute;tait : \";
+var faux 	= \"Vous avez tort. La r&eacute;ponse &eacute;tait : \";
 
 function verif_year_disney(oneannee,choixannee){
-	document.getElementsByClassName('reponse_quiz').item(0).innerHTML = (oneannee == choixannee) ? juste : faux;
+	document.getElementsByClassName('reponse_quiz').item(0).innerHTML = (oneannee == choixannee) ? juste+oneannee : faux+oneannee;
+	
+	var elt = document.getElementsByClassName('button_annee');
+	var i = 0;
+	for(i = 0; i < elt.length; ++i) {
+		elt.item(i).disabled = 'disabled';
+	}
 	document.getElementById('choix').style.display = \"block\";
 }
 
