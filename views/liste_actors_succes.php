@@ -44,7 +44,7 @@ foreach($result_no as $key => $movie) {
 foreach($result as $key => $tb) {
 
 	// Test d'existence des liens images
-	$url_img = "";
+	/*$url_img = "";
 	if ($tb['sa_url_image'] != "") {
 		if (@fclose(@fopen($tb['sa_url_image'], "r"))) { 
 			$url_img = $tb['sa_url_image'];
@@ -60,14 +60,14 @@ foreach($result as $key => $tb) {
 		}
 		
 	}
-	$url_img = utf8_decode($url_img);
+	*/
     echo "
 			<tr>
 				<td><a href=\"" . $__url_wiki . utf8_decode($tb['sa_resource']) . "\">" . utf8_decode($tb['sa_nom']) . "</a><br />
 					<a href=\"./liste_movies_by_actor_v2.php?id_actor=" . $tb['id_success_a'] . "\">Voir ses autres films</a>
 				</td>
 				<td>" . $tb['sa_naissance'] . "</td>
-				<td><img src=\"". $url_img . "\" width='150px' height='150px'/></td>
+				<td><img src=\"". utf8_decode($tb['sa_url_image']) . "\" width='150px' height='150px'/></td>
 				<td>" . utf8_decode($tb['sa_nationalite']) . "</td>
 				<td>
 					<ul>";

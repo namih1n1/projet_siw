@@ -50,5 +50,6 @@ $__ressource = "http://fr.dbpedia.org/resource/";
 		<li><a href="../views/liste_movies_disney.php">Films Disney</a></li>
 		<li><a href="../views/liste_actors_succes.php">Acteurs au box-office mondial</a></li>
 		<li><a href="">Films r&eacute;f&eacute;renc&eacute;s</a></li>
+		<li><a href="../views/liste_quiz.php">Acc&eacute;der aux quiz</a></li>
 	</ul>
 </div>

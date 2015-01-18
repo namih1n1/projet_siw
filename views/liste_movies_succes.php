@@ -23,26 +23,10 @@ echo "<table class='boxoffice_table'>
 
 // Parcours des films
 foreach($result as $key => $tb) {
-	$url_img = "";
-	if ($tb['sm_url_image'] != "") {
-		if (@fclose(@fopen($tb['sm_url_image'], "r"))) { 
-			$url_img = $tb['sm_url_image'];
-		} else { 
-			$url_img = str_replace("commons/thumb","fr",$tb['sm_url_image']);
-			$url_img = substr($url_img,0,strrpos($url_img,"/"));
-			
-			if (@fclose(@fopen($url_img, "r"))) { 
-				$url_img = $url_img;
-			} else { 
-				$url_img = "";
-			}
-		}
-		
-	}
     echo "
 			<tr>
 				<td><a href=\"" . $__url_wiki . utf8_decode($tb['sm_resource']) . "\">" . utf8_decode($tb['sm_titre']) . "</a></td>
-				<td><img src=\"". $url_img . "\" width='150px' height='150px'/></td>
+				<td><img src=\"". utf8_decode($tb['sm_url_image']) . "\" width='150px' height='150px'/></td>
 				<td>" . $tb['sm_annee'] . "</td>
 				<td>
 					<ul>";

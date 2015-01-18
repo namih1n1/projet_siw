@@ -32,6 +32,24 @@ $cpt = 1;
 while( $row = sparql_fetch_array( $list_disney_films ) )
 {
 	$url_img = isset($row['image']) ? $row['image'] : NULL;
+	// Test d'existence des liens images
+	$url_img = isset($row['image']) ? $row['image'] : NULL;
+	if ($url_img != "") {
+		if (@fclose(@fopen($url_img, "r"))) { 
+			$url_img = $url_img;
+		} else { // Erreur 404 = réécriture des liens
+			$url_img = str_replace("commons/thumb","fr",$url_img);
+			$url_img = substr($url_img,0,strrpos($url_img,"/"));
+			
+			if (@fclose(@fopen($url_img, "r"))) { 
+				$url_img = $url_img;
+			} else { 
+				$url_img = "";
+			}
+		}
+		
+	}
+	
 	$traited_resource = substr($row['resfilm'],strrpos($row['resfilm'],"/")+1);
 	$dbh->prepare("INSERT INTO disney_movies 
 			VALUES ( ". $cpt .", 

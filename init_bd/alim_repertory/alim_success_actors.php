@@ -30,17 +30,7 @@ foreach($resfilm as $key => $tb) {
 			OPTIONAL {?resactor	dbpedia-owl:nationality	?nationalite } 
 			FILTER langmatches(lang(?nom), \"fr\") .
 		}";
-	/*
-	$sparql = "
-		SELECT ?resactor ?nom ?naissance 
-		WHERE {
-			" . $resource_film . "	dbpedia-owl:starring 	?resactor .
-			?resactor				dbpedia-owl:birthDate  	?naissance ;
-									rdfs:label				?nom .
-			FILTER langmatches(lang(?nom),\"fr\").
-		}
-	";
-	*/
+
 	$list_success_actors = sparql_query( $sparql );
 	if( !$list_success_actors ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 	unset($sparql);
@@ -54,7 +44,24 @@ foreach($resfilm as $key => $tb) {
 		
 		// Non-existence de l'acteur = ajout à la base
 		if(count($sth_actor->fetchAll()) == 0) {
-			$url_img 	= isset($row['image']) ? $row['image'] : NULL;
+			// Test d'existence des liens images
+			$url_img = isset($row['image']) ? $row['image'] : NULL;
+			if ($url_img != "") {
+				if (@fclose(@fopen($url_img, "r"))) { 
+					$url_img = $url_img;
+				} else { // Erreur 404 = réécriture des liens
+					$url_img = str_replace("commons/thumb","fr",$url_img);
+					$url_img = substr($url_img,0,strrpos($url_img,"/"));
+					
+					if (@fclose(@fopen($url_img, "r"))) { 
+						$url_img = $url_img;
+					} else { 
+						$url_img = "";
+					}
+				}
+				
+			}
+			
 			$nation 	= isset($row['nationalite']) ? substr($row['nationalite'],strrpos($row['nationalite'],"/")+1) : NULL;
 			$dbh->prepare("INSERT INTO success_actors
 					VALUES ( " . $cpt . ", 

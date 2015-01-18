@@ -29,6 +29,23 @@ $cpt = 1;
 while( $row = sparql_fetch_array( $list_success_films ) )
 {
 	$url_img = isset($row['image']) ? $row['image'] : NULL;
+	// Test d'existence des liens images
+	if ($url_img != "") {
+		if (@fclose(@fopen($url_img, "r"))) { 
+			$url_img = $url_img;
+		} else { // Erreur 404 = réécriture des liens
+			$url_img = str_replace("commons/thumb","fr",$url_img);
+			$url_img = substr($url_img,0,strrpos($url_img,"/"));
+			
+			if (@fclose(@fopen($url_img, "r"))) { 
+				$url_img = $url_img;
+			} else { 
+				$url_img = "";
+			}
+		}
+		
+	}
+	
 	$dbh->prepare("INSERT INTO success_movies 
 			VALUES ( ". $cpt .", 
 			\"" . substr($row['ressource'],strrpos($row['ressource'],"/")+1) . "\",
