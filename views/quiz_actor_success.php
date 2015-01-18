@@ -117,11 +117,11 @@ if ($type_quiz == 3 ) {
 		<div class=\"quizzcommun\">
 		<div id=\"commun\"> 
 			<p>Quel est l'acteur commun &agrave; ces films ?</p>
-			<div class=\"films\">";
+			<div class=\"films\"><ul>";
 			foreach($tb_titres as $key => $titre) {
 				echo "<li>".utf8_decode($titre['mov_titre'])."</li>";
 			}
-			echo "</div>
+			echo "</ul></div>
 		</div>
 		<div id=\"question\">
 			<input type=\"button\" name=\"choix_0\" value=\"".utf8_decode($tb_acteurs[0]['nom'])."\" onclick=\"verif_commun(".$tb_acteurs[0]['choix'].")\"  />
