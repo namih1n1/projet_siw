@@ -50,7 +50,7 @@ foreach($result as $key => $res_acteur) {
 					\"" . $row['titre'] . "\",
 					" . $row['year'] . ",
 					0,
-					". $res_acteur['id_success_a'] ."
+					\"|\"
 					)")->execute();
 			$cpt++;
 		}

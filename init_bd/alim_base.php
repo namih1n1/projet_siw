@@ -7,7 +7,7 @@ include("./".$repertoire."/alim_success_movies.php");
 include("./".$repertoire."/alim_success_actors.php");
 include("./".$repertoire."/alim_link_sm_sa.php");
 include("./".$repertoire."/alim_all_movies.php");
-// include("./".$repertoire."/alim_all_actors.php");
+include("./".$repertoire."/upd_all_movies.php");
 include("./".$repertoire."/alim_disney_movies.php");
 include("./".$repertoire."/alim_oscar_disney_movie.php");
 

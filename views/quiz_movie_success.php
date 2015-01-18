@@ -12,8 +12,16 @@ include("../includes/header.php");
 	<div class=\"question_quiz\">Quiz film </div>
 
 	<?php 
+	if (substr($quizmovie[0]['sm_titre'],0,strpos($quizmovie[0]['sm_titre'],"(film")) != false)
+		$traitement_titre0 = trim(utf8_decode(substr($quizmovie[0]['sm_titre'],0,strpos($quizmovie[0]['sm_titre'],"(film"))));
+	else $traitement_titre0 = trim(utf8_decode($quizmovie[0]['sm_titre']));
+		
+	if (substr($quizmovie[1]['sm_titre'],0,strpos($quizmovie[1]['sm_titre'],"(film")) != false)
+		$traitement_titre1 = trim(utf8_decode(substr($quizmovie[1]['sm_titre'],0,strpos($quizmovie[1]['sm_titre'],"(film"))));
+	else $traitement_titre1 = trim(utf8_decode($quizmovie[1]['sm_titre']));
+	
 	echo "
-		<p>Est-ce que \"" . utf8_decode($quizmovie[0]['sm_titre']) . "\" est sorti avant \"" . utf8_decode($quizmovie[1]['sm_titre']) . "\" ?</p>
+		<p>Est-ce que \"" . $traitement_titre0 . "\" est sorti avant \"" . $traitement_titre1 . "\" ?</p>
 		<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_no(". $quizmovie[0]['sm_annee'] .",". $quizmovie[1]['sm_annee'] .")\" />
 		<input id=\"answer_yes\" type=\"button\" name=\"yes\" value=\"OUI\" onclick=\"answer_yes(". $quizmovie[0]['sm_annee'] .",". $quizmovie[1]['sm_annee'] .")\" />
 		
