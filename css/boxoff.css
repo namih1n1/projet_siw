@@ -125,6 +125,12 @@ padding:8px 0;
 color:#000;
 }
 
+.tabletitle h2{
+	color: #1e1e1e;
+    font-family: 'Gabriela', serif;
+    letter-spacing: .10em;
+    text-align: center;
+}
 table a:link {
 	color: #666;
 	font-weight: bold;
