@@ -54,11 +54,6 @@ echo "
 	<div id=\"choix\" style=\"display:none\">
 		<input type=\"button\" name=\"again\" value=\"SUIVANT\" onclick=\"again()\"  />
 		<input type=\"button\" name=\"other\" value=\"Autre quiz\" onclick=\"changerQuiz()\" />
-		
-		<div id=\"other_quiz\" style=\"display:none\">
-			<a href=\"./liste_quiz.php\" >Quiz sur les films &agrave; succ&egrave;s</a>
-			
-		</div>
 	</div>
 ";
 
@@ -100,7 +95,7 @@ function again() {
 }
 
 function changerQuiz() {
-	document.getElementById('other_quiz').style.display = \"block\";
+	window.location = \"./liste_quiz.php\";
 }
 	
 </script>";
