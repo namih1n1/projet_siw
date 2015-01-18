@@ -40,10 +40,10 @@ $__url_wiki = "http://fr.wikipedia.org/wiki/";
 $pattern = array("é","è","ë","ê","à","â","ï","î","ô","ö","ç","ù","û",":","'");
 $__ressource = "http://fr.dbpedia.org/resource/";
 ?>
-<h1>Bienvenue sur QuizMovies</h1>
-<div id="menu">
-	<a href="../views/liste_movies_succes.php">Films au box-office mondial</a>
-	<a href="../views/liste_movies_disney.php">Films Disney</a>
-	<a href="../views/liste_actors_succes.php">Acteurs au box-office mondial</a>
-	<a href="">Films r&eacute;f&eacute;renc&eacute;s</a>
-</div>
+<div class = sitetitle><h1>Bienvenue sur QuizMovies</h1></div>
+<ul id="menu">
+	<li><a href="../views/liste_movies_succes.php">Films au box-office mondial</a></li>
+	<li><a href="../views/liste_movies_disney.php">Films Disney</a></li>
+	<li><a href="../views/liste_actors_succes.php">Acteurs au box-office mondial</a></li>
+	<li><a href="">Films r&eacute;f&eacute;renc&eacute;s</a></li>
+</ul>
