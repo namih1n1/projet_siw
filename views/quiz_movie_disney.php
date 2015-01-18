@@ -31,7 +31,7 @@ include("../includes/header.php");
 		<table>
 			<thead><tr><th>Question</th><th>Propositions</th></tr></thead>
 			<tr>
-				<td>Quand est sorti le film Disney suivant ? \"" .$traitement_titre."</td>
+				<td style=\"font-size:20px; text-align:center;\">Quand est sorti le film Disney suivant ? <br />" .$traitement_titre."</td>
 				<td>
 					<table>";
 					foreach($yeardisney as $cle => $tb) {
