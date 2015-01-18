@@ -117,9 +117,9 @@ if ($type_quiz == 3 ) {
 		<div class=\"quizzcommun\">
 		<div id=\"commun\"> 
 			<p>Quel est l'acteur commun &agrave; ces films ?</p>
-			<div class=\"photo_actor\">";
+			<div class=\"films\">";
 			foreach($tb_titres as $key => $titre) {
-				echo utf8_decode($titre['mov_titre'])."<br />";
+				echo "<li>".utf8_decode($titre['mov_titre'])."</li>";
 			}
 			echo "</div>
 		</div>
