@@ -1,8 +1,8 @@
 <?php include("../includes/header.php"); ?>
-<div >
+<div class="listequiz">
 	<ul >
-		<li><a href="../views/quiz_actor_success.php">Quiz sur les acteurs du box_office</a></li>
-		<li><a href="../views/quiz_movie_success.php">Quiz sur les films du box_office</a></li>
+		<li><a href="../views/quiz_actor_success.php">Quiz sur les acteurs du Box Office</a></li>
+		<li><a href="../views/quiz_movie_success.php">Quiz sur les films du Box Office</a></li>
 	</ul>
 </div>
 
