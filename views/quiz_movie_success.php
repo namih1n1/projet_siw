@@ -9,7 +9,7 @@ include("../includes/header.php");
 	if( !$quizmovie ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
 
 	?>
-	<div class=\"question_quiz\">Quiz film </div>
+	<div class="question_quiz">Quiz sur les films</div>
 
 	<?php 
 	echo "
