@@ -9,13 +9,13 @@ include("../includes/header.php");
 	if( !$quizmovie ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
 
 	?>
-	<div class=\"question_quiz\">Quiz acteur </div>
+	<div class=\"question_quiz\">Quiz film </div>
 
 	<?php 
 	echo "
-		<p>Est-ce que \"" . utf8_decode($quizmovie[0]['sa_titre']) . "\" est sorti avant \"" . utf8_decode($quizmovie[1]['sa_titre']) . "\" ?</p>
-		<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_no(". $quizmovie[0]['sa_annee'] .",". $quizmovie[1]['sa_annee'] .")\" />
-		<input id=\"answer_yes\" type=\"button\" name=\"yes\" value=\"OUI\" onclick=\"answer_yes(". $quizmovie[0]['sa_annee'] .",". $quizmovie[1]['sa_annee'] .")\" />
+		<p>Est-ce que \"" . utf8_decode($quizmovie[0]['sm_titre']) . "\" est sorti avant \"" . utf8_decode($quizmovie[1]['sm_titre']) . "\" ?</p>
+		<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_no(". $quizmovie[0]['sm_annee'] .",". $quizmovie[1]['sm_annee'] .")\" />
+		<input id=\"answer_yes\" type=\"button\" name=\"yes\" value=\"OUI\" onclick=\"answer_yes(". $quizmovie[0]['sm_annee'] .",". $quizmovie[1]['sm_annee'] .")\" />
 		
 		<div class=\"reponse_quiz\"></div>
 		
