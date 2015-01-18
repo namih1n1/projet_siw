@@ -24,7 +24,7 @@ include("../includes/header.php");
 			<input type=\"button\" name=\"other\" value=\"Autre quiz\" onclick=\"changerQuiz()\" />
 			
 			<div id=\"other_quiz\" style=\"display:none\">
-				<a href=\"./quiz_films_old.php\" >Quiz sur les films &agrave; succ&egrave;s</a>
+				<a href=\"./liste_quiz.php\" >Quiz sur les films &agrave; succ&egrave;s</a>
 				
 			</div>
 		</div>";
