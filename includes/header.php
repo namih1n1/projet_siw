@@ -53,3 +53,5 @@ $__ressource = "http://fr.dbpedia.org/resource/";
 		<li><a href="../views/liste_quiz.php">Acc&eacute;der aux quiz</a></li>
 	</ul>
 </div>
+
+
