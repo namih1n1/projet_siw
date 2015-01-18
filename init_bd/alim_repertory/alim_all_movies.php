@@ -28,7 +28,7 @@ foreach($result as $key => $res_acteur) {
 						dbpedia-owl:starring   	". $resource_actor .".
 			FILTER langmatches(lang(?titre),\"fr\") .
 	}
-	ORDER BY ?ressource
+	ORDER BY ?resfilm
 	";
 	
 	$list_movies = sparql_query( $sparql );

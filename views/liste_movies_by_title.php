@@ -2,7 +2,7 @@
 include("../includes/header.php");
 $l_movie = ( isset($_GET['lettre']) ) ? ucwords($_GET['lettre']) : null;
 
-$sth_films = $dbh->prepare("SELECT * FROM movies WHERE mov_titre LIKE \"".$l_movie."%\"");
+$sth_films = $dbh->prepare("SELECT * FROM movies WHERE mov_titre LIKE \"".$l_movie."%\" ORDER BY mov_titre");
 $sth_films->execute();
 $films = $sth_films->fetchAll();
 
