@@ -47,7 +47,6 @@ while( $row = sparql_fetch_array( $list_disney_films ) )
 				$url_img = "";
 			}
 		}
-		
 	}
 	
 	$traited_resource = substr($row['resfilm'],strrpos($row['resfilm'],"/")+1);
