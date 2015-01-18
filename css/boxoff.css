@@ -1,0 +1,9 @@
+table,th,tr,td{
+    border: 1px solid black;
+}
+ul li {
+	list-style-type: none;
+}
+td {
+	text-align: center;
+}

@@ -40,7 +40,7 @@ function _sparql_a_connection( $db )
 	return $db;
 }
 		
-#	$timeout = 20;
+#   $timeout = 20;
 #	$old = ini_set('default_socket_timeout', $timeout);
 #	ini_set('default_socket_timeout', $old);
 class sparql_connection
