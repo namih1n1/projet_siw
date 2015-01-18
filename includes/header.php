@@ -44,7 +44,7 @@ $__ressource = "http://fr.dbpedia.org/resource/";
 <div class = sitetitle>
 	<h1>Bienvenue sur Cin&eacute;Quiz</h1>
 	<h2>Etes-vous un vrai fan de Disney ? Un f&eacute;ru des films au box-office ? C'est le moment de vous tester !</h2>
-	<h4>Petit conseil ... Consultez le site avant de passer au Quiz ... A part si vous &ecirc;tes un incolable ;) </h4>
+	<h4>Petit conseil ... Consultez le site avant de passer au Quiz ... A part si vous &ecirc;tes incollable ;) </h4>
 	<ul id="menu">
 		<li><a href="../views/liste_movies_succes.php">Films au box-office mondial</a></li>
 		<li><a href="../views/liste_movies_disney.php">Films Disney</a></li>
