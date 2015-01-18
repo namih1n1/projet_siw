@@ -1,7 +1,7 @@
 <?php
 include("../includes/header.php");
 
-$type_quiz = rand(1,3);
+$type_quiz = rand(1,2);
 
 if ($type_quiz == 1) {
 	// Récupération de 2 acteurs à succès aléatoires
@@ -67,28 +67,15 @@ if ($type_quiz == 3 ) {
 		array_pop($list_id_film);
 	}
 	shuffle($list_id_film);
-	$list_id_film = array($list_id_film[0],$list_id_film[1],$list_id_film[2]);
-	var_dump($list_id_film);
+	$list_id_film = array((int)($list_id_film[0]),(int)($list_id_film[1]),(int)($list_id_film[2]));
+	
+	$sth = $dbh->prepare("SELECT * FROM movies WHERE id_mov IN (". implode(",",$list_id_film).")");
+	$sth->execute();
+	$films = $sth->fetchAll();
+	echo '<pre>';
+	var_dump($films);
+	echo '</pre>';
 
-	
-	// Mélange du tablau de résultat
-	$keys = array_keys($quizactor);
-	shuffle($keys);
-	foreach($keys as $key) {
-		$rnd_quizactor[$key] = $quizactor[$key];
-	}
-	$quizactor = $rnd_quizactor;
-	
-	echo "
-		<div id=\"identite\"> 
-			<p>Qui est-ce ?</p>
-			<div class=\"photo_actor\"><img src=\"".utf8_decode($rnd_quizactor[$choix_photo]['sa_url_image'])."\" width='200px' height='300px' /></div>
-		</div>
-		<div id=\"question\">
-			<input type=\"button\" name=\"choix_0\" value=\"".utf8_decode($rnd_quizactor[0]['sa_nom'])."\" onclick=\"verif_photo(0,".$choix_photo.")\"  />
-			<input type=\"button\" name=\"choix_1\" value=\"".utf8_decode($rnd_quizactor[1]['sa_nom'])."\" onclick=\"verif_photo(1,".$choix_photo.")\"  />
-			<input type=\"button\" name=\"choix_2\" value=\"".utf8_decode($rnd_quizactor[2]['sa_nom'])."\" onclick=\"verif_photo(2,".$choix_photo.")\"  />
-		</div>";	
 }
 
 echo "
