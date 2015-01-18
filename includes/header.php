@@ -9,6 +9,7 @@
 		<meta name="Author" content="Alexandre LE - Elsa SAMIMI"/>
 		
 		<link href="../css/boxoff.css" rel="stylesheet" type="text/css"/>
+		<link href='http://fonts.googleapis.com/css?family=Gabriela' rel='stylesheet' type='text/css'>
 
 	</head>	
 	<body>
@@ -40,10 +41,12 @@ $__url_wiki = "http://fr.wikipedia.org/wiki/";
 $pattern = array("é","è","ë","ê","à","â","ï","î","ô","ö","ç","ù","û",":","'");
 $__ressource = "http://fr.dbpedia.org/resource/";
 ?>
-<div class = sitetitle><h1>Bienvenue sur QuizMovies</h1></div>
-<ul id="menu">
-	<li><a href="../views/liste_movies_succes.php">Films au box-office mondial</a></li>
-	<li><a href="../views/liste_movies_disney.php">Films Disney</a></li>
-	<li><a href="../views/liste_actors_succes.php">Acteurs au box-office mondial</a></li>
-	<li><a href="">Films r&eacute;f&eacute;renc&eacute;s</a></li>
-</ul>
+<div class = sitetitle>
+	<h1>Bienvenue sur QuizMovies</h1>
+	<ul id="menu">
+		<li><a href="../views/liste_movies_succes.php">Films au box-office mondial</a></li>
+		<li><a href="../views/liste_movies_disney.php">Films Disney</a></li>
+		<li><a href="../views/liste_actors_succes.php">Acteurs au box-office mondial</a></li>
+		<li><a href="">Films r&eacute;f&eacute;renc&eacute;s</a></li>
+	</ul>
+</div>
