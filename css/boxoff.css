@@ -269,5 +269,11 @@ table tr:hover td {
 	font-family: 'Gabriela', serif;
 	color: black;
 	font-size: 22px;
+	margin: auto;
+	width: 430px;
 }
 
+.listequiz li{
+	list-style-type: disc;
+
+}
