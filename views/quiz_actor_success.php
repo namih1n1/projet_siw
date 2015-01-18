@@ -1,7 +1,33 @@
 <?php
 include("../includes/header.php");
 
-// Récuération de deux films aléatoirement, parmi le box-office, pour les âges
+$points = 0;
+// Récupération de 20 films à succès aléatoires
+$sth = $dbh->prepare("SELECT * FROM success_actors ORDER BY RAND() LIMIT 20");
+$sth->execute();
+$resfilm = $sth->fetchAll();
+
+if( !$resfilm ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
+$cpt = 1;
+
+$cpt == 0;
+?>
+<div class=\"question_quiz\">Quiz acteur </div>
+
+<?php 
+while($cpt < count($resfilm)/2) {
+	echo "
+	<p>Est-ce que \"" . utf8_decode($resfilm[$cpt]['sa_nom']) . "\" est n&eacute; avant \"" . utf8_decode($resfilm[$cpt+1]['sa_nom']) . "\" ?</p>
+	<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_no(". $resfilm[$cpt]['sa_naissance'] .",". $resfilm[$cpt+1]['sa_naissance'] .",".$points.")\" />
+    <input id=\"answer_yes\" type=\"button\" name=\"yes\" value=\"OUI\" onclick=\"answer_yes(". $resfilm[$cpt]['sa_naissance'] .",". $resfilm[$cpt+1]['sa_naissance'] .",".$points.")\" />
+	
+	<div class=\"reponse_quiz\"></div>
+	";
+	$cpt = $cpt + 2;
+}
+	echo "<div class=\"point_quiz\">Vous avez <span id=\"cumul_point\"></span> points.</div>";
+
+/*
 $sparql = "
 	SELECT distinct ?resactor ?nom ?naissance
 	WHERE {
@@ -45,22 +71,34 @@ echo "
 		</div>
 	</div>
 ";
+*/
 
 
 echo "<script language=\"javascript\">
 var juste 	= \"Vous avez raison !\";
 var faux 	= \"Vous avez tort.\";
-function answer_no(param1,param2){
+function answer_no(point,param1,param2){
+	var score = point;
+	if (param1 > param2) {
+		score = score + 1;
+	}
+	
 	(param1 > param2) 	? document.getElementsByClassName('reponse_quiz').item(0).innerHTML = juste
 						: document.getElementsByClassName('reponse_quiz').item(0).innerHTML = faux;
 	document.getElementById('choix').style.display = \"block\";
-	document.getElementById('answer_no').enabled = \"disabled\";
+	document.getElementById('cumul_point').innerHTML = score;
 	
 }
-function answer_yes(param1,param2){
+function answer_yes(point,param1,param2){
+	var score = point;
+	if (param1 < param2) {
+		score = score + 1;
+		
+	}
 	(param1 < param2) 	? document.getElementsByClassName('reponse_quiz').item(0).innerHTML = juste
 						: document.getElementsByClassName('reponse_quiz').item(0).innerHTML = faux;
 	document.getElementById('choix').style.display = \"block\";
+	document.getElementById('cumul_point').innerHTML = score;
 }
 
 function again() {
