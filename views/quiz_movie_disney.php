@@ -41,7 +41,7 @@ include("../includes/header.php");
 					foreach($yeardisney as $cle => $tb) {
 						if( ($cle % 8) == 0 ) echo "<tr>";
 
-						echo "<td><input class=\"button_annee\" type=\"button\" name=\"".$tb['dm_annee']."\" value=\"".$tb['dm_annee']."\" onclick=\"verif_year_disney(".$onedisney[0]['dm_annee'].",".$tb['dm_annee'].")\" /></td>";
+						echo "<td><input class=\"button_annee\" type=\"button\" name=\"".$tb['dm_annee']."\" value=\"".$tb['dm_annee']."\" onclick=\"verif_year_disney(".$cle.",".$onedisney[0]['dm_annee'].",".$tb['dm_annee'].")\" /></td>";
 						
 						if (($cle % 8) == 7 ) echo "</tr>";
 					}
@@ -59,20 +59,25 @@ include("../includes/header.php");
 		</div>
 		
 		";
+?>
 
-echo "<script language=\"javascript\">
-var juste 	= \"Vous avez raison ! La r&eacute;ponse &eacute;tait : \";
-var faux 	= \"Vous avez tort. La r&eacute;ponse &eacute;tait : \";
+<script language="javascript">
+var juste 	= "Vous avez raison ! La r&eacute;ponse &eacute;tait : ";
+var faux 	= "Vous avez tort. La r&eacute;ponse &eacute;tait : ";
 
-function verif_year_disney(oneannee,choixannee){
-	document.getElementsByClassName('reponse_quiz').item(0).innerHTML = (oneannee == choixannee) ? juste+oneannee : faux+oneannee;
+function verif_year_disney(id,oneannee,choixannee){
+	document.getElementsByClassName("reponse_quiz").item(0).innerHTML = (oneannee == choixannee) ? juste+oneannee : faux+oneannee;
 	
-	var elt = document.getElementsByClassName('button_annee');
+	var elt = document.getElementsByClassName("button_annee");
 	var i = 0;
 	for(i = 0; i < elt.length; ++i) {
-		elt.item(i).disabled = 'disabled';
+		if (i == id) {
+			elt.item(i).style.backgroundColor = "blue";
+			elt.item(i).style.color = "white";
+		}
+		elt.item(i).disabled = "disabled";
 	}
-	document.getElementById('choix').style.display = \"block\";
+	document.getElementById("choix").style.display = "block";
 }
 
 function again() {
@@ -80,9 +85,10 @@ function again() {
 }
 
 function changerQuiz() {
-	window.location = \"./liste_quiz.php\";
+	window.location = "./liste_quiz.php";
 }
-</script>";
+</script>
 
-include("../includes/footer.php");
+<?php 
+	include("../includes/footer.php");
 ?>

@@ -27,7 +27,7 @@ foreach($resfilm as $key => $tb) {
 			?resactor 			dbpedia-owl:birthDate  	?naissance ;
 								rdfs:label 				?nom .
 			OPTIONAL {?resactor dbpedia-owl:thumbnail 	?image }
-			OPTIONAL {?resactor	dbpedia-owl:nationality	?nationalite } 
+			OPTIONAL {?resactor	prop-fr:nationalité	?nationalite } 
 			FILTER langmatches(lang(?nom), \"fr\") .
 		}";
 
