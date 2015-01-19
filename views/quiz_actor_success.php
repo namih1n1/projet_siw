@@ -18,8 +18,8 @@ if ($type_quiz == 1) { // Question sur les dates de naissance
 	echo "
 		<div class = \"quizz\"> 
 		<p>Est-ce que \"" . utf8_decode($quizactor[0]['sa_nom']) . "\" est n&eacute; avant \"" . utf8_decode($quizactor[1]['sa_nom']) . "\" ?</p>
-		<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_no(". $quizactor[0]['sa_naissance'] .",". $quizactor[1]['sa_naissance'] .")\" />
-		<input id=\"answer_yes\" type=\"button\" name=\"yes\" value=\"OUI\" onclick=\"answer_yes(". $quizactor[0]['sa_naissance'] .",". $quizactor[1]['sa_naissance'] .")\" />
+		<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_no('".$quizactor[0]['sa_naissance']."','". $quizactor[1]['sa_naissance'] ."')\" />
+		<input id=\"answer_yes\" type=\"button\" name=\"yes\" value=\"OUI\" onclick=\"answer_yes('".$quizactor[0]['sa_naissance']."','". $quizactor[1]['sa_naissance'] ."')\" />
 		</div>
 		";
 }
@@ -39,18 +39,19 @@ if ($type_quiz == 2 ) { // Question de type Qui est-ce ?
 		$rnd_quizactor[$key] = $quizactor[$key];
 	}
 	$quizactor = $rnd_quizactor;
-	
 	echo "
 		<div class=\"quizzidentite\">
-		<div id=\"identite\"> 
-			<p>Qui est-ce ?</p>
-			<div class=\"photo_actor\"><img src=\"".utf8_decode($quizactor[$choix_photo]['sa_url_image'])."\" width='200px' height='300px' /></div>
-		</div>
-		<div id=\"question\">
-			<input type=\"button\" name=\"choix_0\" value=\"".utf8_decode($quizactor[0]['sa_nom'])."\" onclick=\"verif_photo(0,".$choix_photo.")\"  />
-			<input type=\"button\" name=\"choix_1\" value=\"".utf8_decode($quizactor[1]['sa_nom'])."\" onclick=\"verif_photo(1,".$choix_photo.")\"  />
-			<input type=\"button\" name=\"choix_2\" value=\"".utf8_decode($quizactor[2]['sa_nom'])."\" onclick=\"verif_photo(2,".$choix_photo.")\"  />
-		</div>
+			<div id=\"identite\"> 
+				<p>Qui est-ce ?</p>
+				<div class=\"photo_actor\"><img src=\"".utf8_decode($quizactor[$choix_photo]['sa_url_image'])."\" width='200px' height='300px' /></div>
+			</div>
+			<div id=\"question\">";
+			$cpt = 0;
+			foreach($quizactor as $cle => $tb) {
+				echo "<input type=\"button\" name=\"choix_".$cle."\" value=\"".utf8_decode($quizactor[$cle]['sa_nom'])."\" onclick=\"verif_photo(".$cle.",".$choix_photo.",'".$quizactor[$choix_photo]['sa_nom']."',".$cpt.")\"  />";
+				$cpt++;
+			}
+			echo "</div>
 		</div>
 		";	
 }
@@ -115,19 +116,22 @@ if ($type_quiz == 3 ) { // Question films communs
 
 	echo "
 		<div class=\"quizzcommun\">
-		<div id=\"commun\"> 
-			<p>Quel est l'acteur commun &agrave; ces films ?</p>
-			<div class=\"films\"><ul>";
-			foreach($tb_titres as $key => $titre) {
-				echo "<li>".utf8_decode($titre['mov_titre'])."</li>";
+			<div id=\"commun\"> 
+				<p>Quel est l'acteur commun &agrave; ces films ?</p>
+				<div class=\"films\"><ul>";
+				foreach($tb_titres as $key => $titre) {
+					echo "<li>".utf8_decode($titre['mov_titre'])."</li>";
+				}
+				echo "</ul></div>
+			</div>
+			<div id=\"question\">";
+			$cpt = 0;
+			foreach($tb_acteurs as $cle => $tb) {
+				echo "<input type=\"button\" name=\"choix_".$cle."\" value=\"".utf8_decode($tb_acteurs[$cle]['nom'])."\" onclick=\"verif_commun(".$cpt.",".$tb_acteurs[$cle]['choix'].",'".$acteur[0]['sa_nom']."')\"  />";
+				$cpt++;
 			}
-			echo "</ul></div>
-		</div>
-		<div id=\"question\">
-			<input type=\"button\" name=\"choix_0\" value=\"".utf8_decode($tb_acteurs[0]['nom'])."\" onclick=\"verif_commun(".$tb_acteurs[0]['choix'].")\"  />
-			<input type=\"button\" name=\"choix_1\" value=\"".utf8_decode($tb_acteurs[1]['nom'])."\" onclick=\"verif_commun(".$tb_acteurs[1]['choix'].")\"  />
-			<input type=\"button\" name=\"choix_2\" value=\"".utf8_decode($tb_acteurs[2]['nom'])."\" onclick=\"verif_commun(".$tb_acteurs[2]['choix'].")\"  />
-		</div>
+			echo "
+			</div>
 		</div>
 		";	
 }
@@ -143,54 +147,64 @@ echo "
 	</div>
 
 ";
+?>
 
+<script language="javascript">
+var juste 	= "Vous avez raison !";
+var faux 	= "Vous avez tort.";
 
-echo "<script language=\"javascript\">
-var juste 	= \"Vous avez raison !\";
-var faux 	= \"Vous avez tort.\";
-function answer_no(param1,param2,point){
-	var score = point;
-	if (param1 > param2) {
-		score = score + 1;
-	}
-	
-	(param1 > param2) 	? document.getElementsByClassName('reponse_quiz').item(0).innerHTML = juste
-						: document.getElementsByClassName('reponse_quiz').item(0).innerHTML = faux;
-	document.getElementById('choix').style.display = \"block\";
+function answer_no(param1,param2){
+	var naiss1 = new Date(param1);
+	var naiss2 = new Date(param2);
+	var formatNaiss1 = naiss1.getDate() + "/" + (naiss1.getMonth() + 1) + "/" + naiss1.getFullYear();
+	var formatNaiss2 = naiss2.getDate() + "/" + (naiss2.getMonth() + 1) + "/" + naiss2.getFullYear();
+	(naiss1 > naiss2) 	
+		? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' ' + formatNaiss1 + " contre " + formatNaiss2
+		: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' ' + formatNaiss1 + " contre " + formatNaiss2;
+	document.getElementById('choix').style.display = "block";
+	document.getElementById("answer_no").style.backgroundColor = "blue";
+	document.getElementById('answer_no').disabled = "disabled";
+	document.getElementById('answer_yes').disabled = "disabled";
+}
+
+function answer_yes(param1,param2){
+	var naiss1 = new Date(param1);
+	var naiss2 = new Date(param2);
+	var formatNaiss1 = naiss1.getDate() + "/" + (naiss1.getMonth() + 1) + "/" + naiss1.getFullYear();
+	var formatNaiss2 = naiss2.getDate() + "/" + (naiss2.getMonth() + 1) + "/" + naiss2.getFullYear();
+	(naiss1 < naiss2) 	
+		? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' ' + formatNaiss1 + " contre " + formatNaiss2
+		: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' ' + formatNaiss1 + " contre " + formatNaiss2;
+	document.getElementById('choix').style.display = "block";
+	document.getElementById("answer_yes").style.backgroundColor = "blue";
 	document.getElementById('answer_no').disabled = 'disabled';
 	document.getElementById('answer_yes').disabled = 'disabled';
+}
+
+function verif_photo(id,choix_photo,reponse,compteur) {
+
+	document.getElementsByClassName('reponse_quiz').item(0).innerHTML = (choix_photo == id) ? juste + " C'est " + reponse 
+																							: faux + " C'est " + reponse;
+	document.getElementById("choix").style.display = "block";
+	var elt = document.getElementById("question").children;
+	var i = 0;
+	for (i = 0; i < elt.length; ++i) {
+		if (i == compteur) elt.item(i).style.backgroundColor = "blue";
+		elt.item(i).disabled = "disabled";
+	}
 	
 }
-function answer_yes(param1,param2,point){
-	var score = point;
-	if (param1 < param2) {
-		score = score + 1;
-		
-	}
-	(param1 < param2) 	? document.getElementsByClassName('reponse_quiz').item(0).innerHTML = juste
-						: document.getElementsByClassName('reponse_quiz').item(0).innerHTML = faux;
-	document.getElementById('choix').style.display = \"block\";
-	document.getElementById('answer_no').disabled = 'disabled';
-	document.getElementById('answer_yes').disabled = 'disabled';
-}
 
-function verif_photo(id_nom,choix_photo) {
-	document.getElementsByClassName('reponse_quiz').item(0).innerHTML = (id_nom == choix_photo) ? juste : faux;
-	document.getElementById('choix').style.display = \"block\";
-	var elt = document.getELementById('question');
+function verif_commun(id,choix_acteur,nom) {
+	document.getElementsByClassName("reponse_quiz").item(0).innerHTML = (choix_acteur == 1) 
+		? juste + " La r&eacute;ponse est " +nom
+		: faux  + " La r&eacute;ponse est " +nom;
+	document.getElementById("choix").style.display = "block";
+	var elt = document.getElementById("question").children;
 	var i = 0;
 	for (i = 0; i < elt.length; ++i) {
-		elt.item(i).disabled = 'disabled';
-	}
-}
-
-function verif_commun(choix_acteur) {
-	document.getElementsByClassName('reponse_quiz').item(0).innerHTML = (choix_acteur == 1) ? juste : faux;
-	document.getElementById('choix').style.display = \"block\";
-	var elt = document.getELementById('question');
-	var i = 0;
-	for (i = 0; i < elt.length; ++i) {
-		elt.item(i).disabled = 'disabled';
+		if (i == id) elt.item(i).style.backgroundColor = "blue";
+		elt.item(i).disabled = "disabled";
 	}
 }
 
@@ -199,10 +213,10 @@ function again() {
 }
 
 function changerQuiz() {
-	window.location = \"./liste_quiz.php\";
+	window.location = "./liste_quiz.php";
 }
 	
-</script>";
-
-include("../includes/footer.php");
+</script>
+<?php 
+	include("../includes/footer.php");
 ?>
