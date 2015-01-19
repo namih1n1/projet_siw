@@ -3,7 +3,7 @@ include("../includes/header.php");
 
 $type_quiz = rand(1,3);
 
-if ($type_quiz == 1) {
+if ($type_quiz == 1) { // Question sur les dates de naissance
 	// Récupération de 2 acteurs à succès aléatoires
 	$sth_quizactor = $dbh->prepare("SELECT * FROM success_actors ORDER BY RAND() LIMIT 2");
 	$sth_quizactor->execute();
@@ -24,7 +24,7 @@ if ($type_quiz == 1) {
 		";
 }
 
-if ($type_quiz == 2 ) {
+if ($type_quiz == 2 ) { // Question de type Qui est-ce ?
 	// Récupération de 3 acteurs à succès aléatoires
 	$sth_quizactor = $dbh->prepare("SELECT * FROM success_actors WHERE sa_url_image NOT LIKE '' ORDER BY RAND() LIMIT 3");
 	$sth_quizactor->execute();
@@ -55,7 +55,7 @@ if ($type_quiz == 2 ) {
 		";	
 }
 
-if ($type_quiz == 3 ) {
+if ($type_quiz == 3 ) { // Question films communs
 	$test = 0;
 	while ($test < 3) {
 		// Récupération d'un acteur au hasard
@@ -157,7 +157,8 @@ function answer_no(param1,param2,point){
 	(param1 > param2) 	? document.getElementsByClassName('reponse_quiz').item(0).innerHTML = juste
 						: document.getElementsByClassName('reponse_quiz').item(0).innerHTML = faux;
 	document.getElementById('choix').style.display = \"block\";
-	// document.getElementById('cumul_point').innerHTML = score;
+	document.getElementById('answer_no').disabled = 'disabled';
+	document.getElementById('answer_yes').disabled = 'disabled';
 	
 }
 function answer_yes(param1,param2,point){
@@ -169,17 +170,28 @@ function answer_yes(param1,param2,point){
 	(param1 < param2) 	? document.getElementsByClassName('reponse_quiz').item(0).innerHTML = juste
 						: document.getElementsByClassName('reponse_quiz').item(0).innerHTML = faux;
 	document.getElementById('choix').style.display = \"block\";
-	// document.getElementById('cumul_point').innerHTML = score;
+	document.getElementById('answer_no').disabled = 'disabled';
+	document.getElementById('answer_yes').disabled = 'disabled';
 }
 
 function verif_photo(id_nom,choix_photo) {
 	document.getElementsByClassName('reponse_quiz').item(0).innerHTML = (id_nom == choix_photo) ? juste : faux;
 	document.getElementById('choix').style.display = \"block\";
+	var elt = document.getELementById('question');
+	var i = 0;
+	for (i = 0; i < elt.length; ++i) {
+		elt.item(i).disabled = 'disabled';
+	}
 }
 
 function verif_commun(choix_acteur) {
 	document.getElementsByClassName('reponse_quiz').item(0).innerHTML = (choix_acteur == 1) ? juste : faux;
 	document.getElementById('choix').style.display = \"block\";
+	var elt = document.getELementById('question');
+	var i = 0;
+	for (i = 0; i < elt.length; ++i) {
+		elt.item(i).disabled = 'disabled';
+	}
 }
 
 function again() {
