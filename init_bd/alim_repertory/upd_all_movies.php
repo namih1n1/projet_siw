@@ -4,8 +4,12 @@
 /*       Tous les films des acteurs à succès          */
 /******************************************************/
 
+// Vidage de la colonne d'association
+$sth_purge = $dbh->prepare("UPDATE movies SET mov_id_actor = NULL");
+$sth_purge->execute();
+
 // Récupération des ressources des films
-$sth = $dbh->prepare("SELECT DISTINCT id_mov, mov_resource FROM movies ORDER BY mov_resource");
+$sth = $dbh->prepare("SELECT DISTINCT id_mov, mov_resource FROM movies ORDER BY id_mov");
 $sth->execute();
 
 $result = $sth->fetchAll();

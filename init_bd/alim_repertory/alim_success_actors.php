@@ -21,13 +21,10 @@ foreach($resfilm as $key => $tb) {
 
 	// Recherche SPARQL des acteurs du film courant
 	$sparql = "
-		select ?resactor ?nom ?naissance ?image ?nationalite
+		select ?resactor
 		where {
 			".$resource_film." 	dbpedia-owl:starring 	?resactor .
-			?resactor 			dbpedia-owl:birthDate  	?naissance ;
-								rdfs:label 				?nom .
-			OPTIONAL {?resactor dbpedia-owl:thumbnail 	?image }
-			OPTIONAL {?resactor	prop-fr:nationalité	?nationalite } 
+			?resactor 			rdfs:label 				?nom .
 			FILTER langmatches(lang(?nom), \"fr\") .
 		}";
 
@@ -44,32 +41,9 @@ foreach($resfilm as $key => $tb) {
 		
 		// Non-existence de l'acteur = ajout à la base
 		if(count($sth_actor->fetchAll()) == 0) {
-			// Test d'existence des liens images
-			$url_img = isset($row['image']) ? $row['image'] : NULL;
-			if ($url_img != "") {
-				if (@fclose(@fopen($url_img, "r"))) { 
-					$url_img = $url_img;
-				} else { // Erreur 404 = réécriture des liens
-					$url_img = str_replace("commons/thumb","fr",$url_img);
-					$url_img = substr($url_img,0,strrpos($url_img,"/"));
-					
-					if (@fclose(@fopen($url_img, "r"))) { 
-						$url_img = $url_img;
-					} else { 
-						$url_img = "";
-					}
-				}
-				
-			}
-			
-			$nation 	= isset($row['nationalite']) ? substr($row['nationalite'],strrpos($row['nationalite'],"/")+1) : NULL;
 			$dbh->prepare("INSERT INTO success_actors
 					VALUES ( " . $cpt . ", 
 					\"" . $traited_resnom . "\",
-					\"" . $row['nom'] . "\",
-					\"" . $row['naissance'] . "\",
-					\"" . $nation . "\",
-					\"" . $url_img . "\",
 					\"\"
 					)")->execute();
 			$cpt++;
@@ -77,7 +51,7 @@ foreach($resfilm as $key => $tb) {
 		$sth_id_films = $dbh->prepare("SELECT list_idfilms FROM success_actors WHERE sa_resource LIKE \"%". $traited_resnom ."%\"");
 		$sth_id_films->execute();
 		$list_id_films = $sth_id_films->fetchAll();
-		$new_list_id_film = $list_id_films[0]['list_idfilms']. ",". $tb['id_success_m'];
+		$new_list_id_film = $list_id_films[0]['list_idfilms']. "|". $tb['id_success_m'];
 
 		// Insertion id du film
 		$dbh->prepare("UPDATE success_actors SET list_idfilms = \"". $new_list_id_film. "\" WHERE sa_resource LIKE \"%". $traited_resnom ."%\"")->execute();

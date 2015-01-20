@@ -14,7 +14,7 @@ $acteurs = $sth_act->fetchAll();
 
 foreach( $acteurs as $key => $tb ) {
 	$str_id_movie = substr($tb['list_idfilms'],1);
-	foreach(explode(",",$str_id_movie) as $id_m) {
+	foreach(explode("|",$str_id_movie) as $id_m) {
 		$sth = $dbh->prepare("INSERT INTO link_sm_sa VALUES (".$id_m.",".$tb['id_success_a'].")");
 		$sth->execute();
 	}

@@ -7,7 +7,7 @@
 $dbh->exec("TRUNCATE TABLE actors" );
 
 // Récupération des films de la base
-$sth_mov = $dbh->prepare("SELECT id_mov, mov_resource FROM movies ORDER BY mov_resource");
+$sth_mov = $dbh->prepare("SELECT id_mov, mov_resource FROM movies ORDER BY id_mov");
 $sth_mov->execute();
 
 $movies = $sth_mov->fetchAll();
@@ -19,11 +19,12 @@ foreach($movies as $key => $tb) {
 	$resource_film = "<".$__ressource.$tb['mov_resource'].">";
 	// Requête SPARQL des acteurs du film courant
 	$sparql = "
-		select ?resactors ?nom ?naissance
+		select ?resactors ?nom ?naissance ?image
 		where {
-		   ".$resource_film."   dbpedia-owl:starring  ?resactors .
-		   ?resactors  			rdfs:label            ?nom ;
-								dbpedia-owl:birthDate ?naissance .
+		   ".$resource_film."   	dbpedia-owl:starring  ?resactors .
+		   ?resactors  				rdfs:label            ?nom .
+			OPTIONAL {?resactors 	dbpedia-owl:birthDate ?naissance }
+			OPTIONAL {?resactors	dbpedia-owl:thumbnail ?image }
 		   FILTER langmatches(lang(?nom),\"fr\") .
 		}
 	";
@@ -32,40 +33,49 @@ foreach($movies as $key => $tb) {
 	$list_actors = sparql_query( $sparql );
 	if( !$list_actors ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }
 	unset($sparql);
-	if (sparql_num_rows( $list_actors ) == 0) echo $resource_film. "\n";
 
 	// Parcours des acteurs du film courant
 	while( $row = sparql_fetch_array( $list_actors ) )
 	{
 		$traited_resactor = substr($row['resactors'],strrpos($row['resactors'],"/")+1);
+		$naissance = isset($row['naissance']) 	? $row['naissance'] : NULL;
+		$url_img 	= isset($row['image']) 		? $row['image'] 	: NULL;
+		if ($url_img != "") {
+			if (@fclose(@fopen($url_img, "r"))) { 
+				$url_img = $url_img;
+			} else { // Erreur 404 = réécriture des liens
+				$url_img = str_replace("commons/thumb","fr",$url_img);
+				$url_img = substr($url_img,0,strrpos($url_img,"/"));
+				
+				if (@fclose(@fopen($url_img, "r"))) { 
+					$url_img = $url_img;
+				} else { 
+					$url_img = "";
+				}
+			}
+			
+		}
+		
 		$sth_actor = $dbh->prepare("SELECT * FROM actors WHERE act_resource LIKE \"%". $traited_resactor ."%\"");
 		$sth_actor->execute();
-		
-		// Non-existence du film = ajout à la base
-		if($sth_actor->fetchAll() == null) {
+		$acteur = $sth_actor->fetchAll();
+		// Non-existence de l'acteur = ajout à la base
+		if($acteur == null) {
 			$dbh->prepare("INSERT INTO actors
 					VALUES ( " . $cpt . ", 
 					\"" . $traited_resactor . "\",
 					\"" . $row['nom'] . "\",
-					\"" . $row['naissance'] . "\",
-					0,
-					\"\"
+					\"" . $naissance . "\",
+					\"" . $url_img . "\",
+					0
 					)")->execute();
 			$cpt++;
 		}
-		
-		$sth_id_films = $dbh->prepare("SELECT act_id_movie FROM actors WHERE act_resource LIKE \"%". $traited_resactor ."%\"");
-		$sth_id_films->execute();
-		$list_id_films = $sth_id_films->fetchAll();
-		$new_list_id_film = $list_id_films[0]['act_id_movie']. ",". $tb['id_mov'];
-
-		// Insertion id du film
-		$dbh->prepare("UPDATE actors SET act_id_movie = \"". $new_list_id_film. "\" WHERE act_resource LIKE \"%". $traited_resactor ."%\"")->execute();
 	}
 	unset($list_actors);
 }
 unset($movies);
-echo "alim_all_actors FINI\n";
+
 
 // Mise à jour des films qui sont des succès au box-office
 $upd = $dbh->prepare("
@@ -73,6 +83,6 @@ $upd = $dbh->prepare("
 		SET 	act_is_success = 1 
 		WHERE 	act_resource IN (SELECT DISTINCT sa_resource FROM success_actors)");
 $upd->execute();
-echo "UPDATE actors FINI \n";
+echo "alim_all_actors FINI\n";
 
 ?>

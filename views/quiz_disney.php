@@ -59,36 +59,6 @@ include("../includes/header.php");
 		</div>
 		
 		";
-?>
 
-<script language="javascript">
-var juste 	= "Vous avez raison ! La r&eacute;ponse &eacute;tait : ";
-var faux 	= "Vous avez tort. La r&eacute;ponse &eacute;tait : ";
-
-function verif_year_disney(id,oneannee,choixannee){
-	document.getElementsByClassName("reponse_quiz").item(0).innerHTML = (oneannee == choixannee) ? juste+oneannee : faux+oneannee;
-	
-	var elt = document.getElementsByClassName("button_annee");
-	var i = 0;
-	for(i = 0; i < elt.length; ++i) {
-		if (i == id) {
-			elt.item(i).style.backgroundColor = "blue";
-			elt.item(i).style.color = "white";
-		}
-		elt.item(i).disabled = "disabled";
-	}
-	document.getElementById("choix").style.display = "block";
-}
-
-function again() {
-	window.location.reload(5);
-}
-
-function changerQuiz() {
-	window.location = "./liste_quiz.php";
-}
-</script>
-
-<?php 
 	include("../includes/footer.php");
 ?>

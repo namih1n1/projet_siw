@@ -9,6 +9,7 @@
 		<meta name="Author" content="Alexandre LE - Elsa SAMIMI"/>
 		
 		<link href="../css/boxoff.css" rel="stylesheet" type="text/css"/>
+		<script src="../script/quizscript.js"></script>
 		<link href='http://fonts.googleapis.com/css?family=Gabriela' rel='stylesheet' type='text/css'>
 
 	</head>	

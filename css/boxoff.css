@@ -290,6 +290,12 @@ table tr:hover td {
 
 }
 
+.bloc_question {
+	display	: inline-block;
+	border	: solid black 1px;
+	padding :0px 20px;
+}
+
 .question{
 	text-align: center;
 	font-family: 'Gabriela', serif;

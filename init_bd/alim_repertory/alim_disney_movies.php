@@ -6,6 +6,13 @@
 
 $dbh->exec("TRUNCATE TABLE disney_movies" );
 
+// Récupération du dernier id de la table movies
+$sth_lastid = $dbh->prepare("SELECT MAX(id_mov) as max FROM movies");
+$sth_lastid->execute();
+$last_id = $sth_lastid->fetchAll();
+if( !$last_id ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
+
+$cpt = $last_id[0]['max'] + 1;
 $sparql = "
 	select DISTINCT ?resfilm ?titre ?annee ?image
 where {
@@ -15,7 +22,6 @@ where {
           prop-fr:annéeDeSortie ?annee ;
           dcterms:subject <http://fr.dbpedia.org/resource/Catégorie:Long_métrage_d'animation_Disney> .
 		  OPTIONAL {?resfilm dbpedia-owl:thumbnail ?image }
- 
   FILTER langmatches(lang(?titre),\"fr\") .
   FILTER (?studio LIKE \"http*fr.dbpedia.org/resource/Walt_Disney_Pictures*\" OR ?studio LIKE \"http*fr.dbpedia.org/resource/Walt_Disney_Animation_Studios*\" ) .
 }
@@ -27,7 +33,6 @@ if( !$list_disney_films ) { print sparql_errno() . ": " . sparql_error(). "\n"; 
 unset($sparql);
 unset($array_result);
 $array_result = array();
-$cpt = 1;
 
 while( $row = sparql_fetch_array( $list_disney_films ) )
 {

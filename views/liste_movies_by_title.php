@@ -10,7 +10,7 @@ echo "<div class = 'tabletitle' id='movielist'><h2>" .count($films) . " films co
 echo "<table>
 	<thead>
         <tr>
-			<th>Films</th><th>Ann&eacute;e de sortie</th><th>Au box-office</th><th>Acteurs du box-office</th>
+			<th>Films</th><th>Ann&eacute;e de sortie</th><th>Au box-office</th><th>Acteurs</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,19 +31,20 @@ foreach ($films as $key => $tb) {
 		<td>" . $succes . "</td>
 		<td><ul>";
 		
-		$list_id_actor = explode("|",$tb['mov_id_actor']);
-		array_pop($list_id_actor);
-		foreach($list_id_actor as $cle => $id_act) {
-			if ($cle == 0) {
-			}
-			else {
-				$id_actor = (int)($id_act);
-				$sth_actor = $dbh->prepare("SELECT sa_resource, sa_nom FROM success_actors WHERE id_success_a = ".$id_actor);
-				$sth_actor->execute();
-				$actor = $sth_actor->fetchAll();
-				
-				echo "<li><a href=\"" . $__url_wiki . utf8_decode($actor[0]['sa_resource']) . "\">" . utf8_decode($actor[0]['sa_nom']) ."</li>";
-			}
+		
+		$sth_actors = $dbh->prepare("
+			SELECT 	act_resource, 
+					act_nom 
+			FROM 	actors a, 
+					movies m, 
+					link_movies_actors l 
+			WHERE 	a.id_act = l.id_act
+			AND		l.id_mov = m.id_mov
+			AND 	m.id_mov = ".$tb['id_mov']);
+		$sth_actors->execute();
+		$actors = $sth_actors->fetchAll();
+		foreach($actors as $key => $actor) {
+				echo "<li><a href=\"" . $__url_wiki . utf8_decode($actor['act_resource']) . "\">" . utf8_decode($actor['act_nom']) ."</li>";
 		}
 		
 		echo "</ul></td>
