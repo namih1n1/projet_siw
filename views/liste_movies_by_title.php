@@ -10,7 +10,7 @@ echo "<div class = 'tabletitle' id='movielist'><h2>" .count($films) . " films co
 echo "<table>
 	<thead>
         <tr>
-			<th>Films</th><th>Ann&eacute;e de sortie</th><th>Au box-office</th><th>Acteurs</th>
+			<th>Films</th><th>Image associ&eacute;e</th><th>Ann&eacute;e de sortie</th><th>Au box-office</th><th>Acteurs</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,6 +27,7 @@ foreach ($films as $key => $tb) {
 	echo "
     <tr>
         <td><a href=\"" . $__url_wiki . utf8_decode($tb['mov_resource']) . "\">" . $traitement_titre ."</td>
+		<td><img src=\"".utf8_decode($tb['mov_url_image'])."\" width='200px' height='auto' /></td>
         <td>" . $tb['mov_annee'] . "</td>
 		<td>" . $succes . "</td>
 		<td><ul>";

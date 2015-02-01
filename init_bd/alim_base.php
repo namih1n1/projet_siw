@@ -25,9 +25,9 @@ include("./".$repertoire."/alim_all_actors.php");
 include("./".$repertoire."/alim_disney_movies.php");
 include("./".$repertoire."/alim_oscar_disney_movie.php");
 */
-/*
+
 // Cinquième étape
  include("./".$repertoire."/alim_directors.php");
-*/
+
 include("../includes/footer.php");
 ?>

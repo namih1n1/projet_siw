@@ -81,6 +81,45 @@ function verif_year_disney(id,oneannee,choixannee){
 	document.getElementById("choix").style.display = "block";
 }
 
+function answer_film_no(naiss1,naiss2){
+
+	(naiss1 > naiss2) 	
+		? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' ' + naiss1 + " contre " + naiss2
+		: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' ' + naiss1 + " contre " + naiss2;
+	document.getElementById('choix').style.display = "block";
+	document.getElementById("answer_no").style.backgroundColor = "blue";
+	document.getElementById("answer_no").style.color = "white";
+	document.getElementById('answer_no').disabled = "disabled";
+	document.getElementById('answer_yes').disabled = "disabled";
+}
+
+function answer_film_yes(naiss1,naiss2){
+
+	(naiss1 < naiss2) 	
+		? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' ' + naiss1 + " contre " + naiss2
+		: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' ' + naiss1 + " contre " + naiss2;
+	document.getElementById('choix').style.display = "block";
+	document.getElementById("answer_yes").style.backgroundColor = "blue";
+	document.getElementById("answer_yes").style.color = "white";
+	document.getElementById('answer_no').disabled = "disabled";
+	document.getElementById('answer_yes').disabled = "disabled";
+}
+
+function verif_director(id,choix,answer) {
+	(choix == 1)	? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' La r&eacute;ponse est ' + answer
+					: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' La r&eacute;ponse est ' + answer;
+	var elt = document.getElementsByClassName("button_dir");
+	var i = 0;
+	for(i = 0; i < elt.length; ++i) {
+		if (i == id) {
+			elt.item(i).style.backgroundColor = "blue";
+			elt.item(i).style.color = "white";
+		}
+		elt.item(i).disabled = "disabled";
+	}
+	document.getElementById("choix").style.display = "block";
+}
+
 function again() {
 	window.location.reload(5);
 }

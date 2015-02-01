@@ -5,13 +5,13 @@
 /******************************************************/
 
 $dbh->exec("TRUNCATE TABLE directors" );
-
+$dbh->exec("TRUNCATE TABLE link_directors_movies" );
 // Récupération des ressources de movies
 $sth_ress = $dbh->prepare("SELECT id_mov, mov_resource FROM movies");
 $sth_ress->execute();
 $list_ress = $sth_ress->fetchAll();
 if( !$list_ress ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
-$cpt = 1;
+$cpt = 0;
 // Requête SPARQL de récupération des réalisateurs des ressources récupérés
 foreach($list_ress as $key => $tb) {
 	$res_mov = "<".$__ressource . $tb['mov_resource'].">";
@@ -59,6 +59,7 @@ foreach($list_ress as $key => $tb) {
 		$occ = $sth_exist->fetchAll();
 		
 		if ($occ == null) {
+			$cpt++;
 			$sth_insert = $dbh->prepare("INSERT INTO directors VALUES (
 				".$cpt.",
 				\"".$traited_resreal."\",
@@ -69,8 +70,6 @@ foreach($list_ress as $key => $tb) {
 			
 			$sth_upd = $dbh->prepare("INSERT INTO link_directors_movies VALUES (".$cpt.",".$tb['id_mov'].")");
 			$sth_upd->execute();
-			
-			$cpt++;
 		}
 		else {
 			// Ajout du lien director-movie

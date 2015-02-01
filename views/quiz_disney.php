@@ -49,7 +49,7 @@ include("../includes/header.php");
 					echo "</table>
 				</td>
 			</tr>
-
+		</table>
 		<div class=\"reponse_quiz\"></div>
 		
 		<div id=\"choix\" style=\"display:none\">

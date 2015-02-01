@@ -47,6 +47,7 @@ $__ressource = "http://fr.dbpedia.org/resource/";
 	<h2>Etes-vous un vrai fan de Disney ? Un f&eacute;ru des films au box-office ?</h2>
 	<h2>C'est le moment de vous tester !</h2>
 	<h4>Petit conseil ... Consultez le site avant de passer au Quiz ... A part si vous &ecirc;tes incollable ;) </h4>
+	
 	<ul id="menu">
 		<li><a href="../views/liste_movies_succes.php#movie_success">Films au box-office mondial</a></li>
 		<li><a href="../views/liste_movies_disney.php#movie_disney">Films Disney</a></li>
