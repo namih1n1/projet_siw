@@ -15,17 +15,18 @@ if( !$last_id ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
 $cpt = $last_id[0]['max'] + 1;
 $sparql = "
 	select DISTINCT ?resfilm ?titre ?annee ?image
-where {
- ?resfilm dbpedia-owl:producedBy ?studio ;
-          rdf:type <http://schema.org/Movie> ;
-          rdfs:label ?titre ;
-          prop-fr:annéeDeSortie ?annee ;
-          dcterms:subject <http://fr.dbpedia.org/resource/Catégorie:Long_métrage_d'animation_Disney> .
-		  OPTIONAL {?resfilm dbpedia-owl:thumbnail ?image }
-  FILTER langmatches(lang(?titre),\"fr\") .
-  FILTER (?studio LIKE \"http*fr.dbpedia.org/resource/Walt_Disney_Pictures*\" OR ?studio LIKE \"http*fr.dbpedia.org/resource/Walt_Disney_Animation_Studios*\" ) .
-}
-ORDER BY DESC(?annee)
+	where {
+		?resfilm 	dbpedia-owl:producedBy 	?studio ;
+					rdf:type 				<http://schema.org/Movie> ;
+					rdfs:label 				?titre ;
+					prop-fr:annéeDeSortie 	?annee ;
+					dcterms:subject 		<http://fr.dbpedia.org/resource/Catégorie:Long_métrage_d'animation_Disney> .
+		OPTIONAL {?resfilm dbpedia-owl:thumbnail ?image }
+		FILTER langmatches(lang(?titre),\"fr\") .
+		FILTER (	?studio LIKE \"http*fr.dbpedia.org/resource/Walt_Disney_Pictures*\" 
+				OR 	?studio LIKE \"http*fr.dbpedia.org/resource/Walt_Disney_Animation_Studios*\" ) .
+	}
+	ORDER BY DESC(?annee)
 ";
 $list_disney_films = sparql_query( $sparql );
 if( !$list_disney_films ) { print sparql_errno() . ": " . sparql_error(). "\n"; exit; }

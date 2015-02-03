@@ -8,8 +8,13 @@ body{
 
 }
 
-.sitetitle{
+.sitetitle, .footer{
 	background-color: #e7e5e4;
+}
+
+.footer{
+	height:250px; 
+	margin-top:100px;
 }
 
 .sitetitle h1{
@@ -27,7 +32,7 @@ body{
 	text-shadow: 10px 5px 5px #767676;
 
 }
-.sitetitle h2, .sitetitle h4{
+.sitetitle h2, .sitetitle h4, .footer h4{
 	
     color: #1e1e1e;
     background-color: #e7e5e4;
@@ -35,6 +40,36 @@ body{
     letter-spacing: .10em;
     text-align: center;
 
+}
+
+@-webkit-keyframes blinker {
+  from {opacity: 1.0;}
+  to {opacity: 0.0;}
+}
+.blink{
+	text-decoration: blink;
+	-webkit-animation-name: blinker;
+	-webkit-animation-duration: 0.6s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-timing-function:ease-in-out;
+	-webkit-animation-direction: alternate;
+}		
+
+input[type=button]{
+	font-size:15px;
+}
+
+input[type=button]:hover {
+	background-color: yellow;
+	color: maroon;
+}
+
+.footer h4 {
+	text-align: center;
+}
+
+a:hover {
+	cursor:pointer;
 }
 
 #menu{

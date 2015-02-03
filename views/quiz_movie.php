@@ -2,6 +2,16 @@
 include("../includes/header.php");
 
 $type_quiz_m = rand(1,2);
+echo "		
+	<div class=\"propositions\">
+		<div class=\"reponse_quiz\"></div>
+		
+		<div id=\"choix\" style=\"display:none\">
+			<input type=\"button\" name=\"again\" value=\"SUIVANT\" onclick=\"again()\"  />
+			<input type=\"button\" name=\"other\" value=\"Autre quiz\" onclick=\"changerQuiz()\" />
+		</div>
+	</div>
+";
 
 if ($type_quiz_m == 1) {
 	// Récupération de 2 films à succès aléatoires
@@ -159,27 +169,21 @@ if ($type_quiz_m == 2) {
 					}
 	echo 		"		</ul>
 					</td>
-				<td>
-					<table>
-						<tr>";
-				$cpt = 0;
-				foreach($tb_prop as $cle => $director) {
-					echo "	<td><img src=\"".utf8_decode($director['url_img'])."\" height='250px'/><br />
-								<input class=\"button_dir\" type=\"button\" name=\"".$director['nom']."\" value=\"".$director['nom']."\" onclick=\"verif_director(".$cpt.",".$director['choix'].",'".addslashes($reponse)."')\" />
-							</td>";
-					$cpt++;
-				}
-				echo "	</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		<div class=\"reponse_quiz\"></div>
-		
-		<div id=\"choix\" style=\"display:none\">
-			<input type=\"button\" name=\"again\" value=\"SUIVANT\" onclick=\"again()\"  />
-			<input type=\"button\" name=\"other\" value=\"Autre quiz\" onclick=\"changerQuiz()\" />
-		</div>
+					<td>
+						<table>
+							<tr>";
+					$cpt = 0;
+					foreach($tb_prop as $cle => $director) {
+						echo "	<td><img src=\"".utf8_decode($director['url_img'])."\" height='250px'/><br />
+									<input class=\"button_dir\" type=\"button\" name=\"".$director['nom']."\" value=\"".$director['nom']."\" onclick=\"verif_director(".$cpt.",".$director['choix'].",'".addslashes($reponse)."')\" />
+								</td>";
+						$cpt++;
+					}
+					echo "	</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
 		</div>
 		
 		";

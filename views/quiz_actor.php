@@ -3,7 +3,15 @@ include("../includes/header.php");
 
 $criteria = ( isset($_GET['easy']) && ($_GET['easy'] == 'yes') ) ? " AND act_is_success = 1" : "";
 $type_quiz = rand(1,3);
-echo "<div class=\"question_quiz\">Quiz sur les acteurs</div>";
+echo "<div class=\"question_quiz\">Quiz sur les acteurs</div>
+	<div class=\"propositions\">
+		<div class=\"reponse_quiz\"></div>
+			
+		<div id=\"choix\" style=\"display:none\">
+			<input type=\"button\" name=\"again\" value=\"SUIVANT\" onclick=\"again()\"  />
+			<input type=\"button\" name=\"other\" value=\"Autre quiz\" onclick=\"changerQuiz()\" />
+		</div>
+	</div>";
 
 if ($type_quiz == 1) { // Question sur les dates de naissance
 	// Récupération de 2 acteurs 
@@ -19,8 +27,8 @@ if ($type_quiz == 1) { // Question sur les dates de naissance
 				<p>Est-ce que \"" . utf8_decode($quizactor[0]['act_nom']) . "\" est n&eacute; avant \"" . utf8_decode($quizactor[1]['act_nom']) . "\" ?</p>
 			</div>
 			<br />
-		<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_no('".$quizactor[0]['act_naissance']."','". $quizactor[1]['act_naissance'] ."')\" />
 		<input id=\"answer_yes\" type=\"button\" name=\"yes\" value=\"OUI\" onclick=\"answer_yes('".$quizactor[0]['act_naissance']."','". $quizactor[1]['act_naissance'] ."')\" />
+		<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_no('".$quizactor[0]['act_naissance']."','". $quizactor[1]['act_naissance'] ."')\" />
 		</div>
 		";
 }
@@ -176,18 +184,5 @@ if ($type_quiz == 3 ) { // Question films communs
 		</div>
 		";	
 }
-
-
-echo "
-	<div class=\"propositions\">
-	<div class=\"reponse_quiz\"></div>
-		
-	<div id=\"choix\" style=\"display:none\">
-		<input type=\"button\" name=\"again\" value=\"SUIVANT\" onclick=\"again()\"  />
-		<input type=\"button\" name=\"other\" value=\"Autre quiz\" onclick=\"changerQuiz()\" />
-	</div>
-	</div>
-
-"; 
 include("../includes/footer.php");
 ?>

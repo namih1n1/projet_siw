@@ -6,8 +6,6 @@
 
 $dbh->exec("TRUNCATE TABLE link_sm_sa;" );
 
-$schema = "http://schema.org/Movie";
-
 $sth_act = $dbh->prepare("SELECT id_success_a, list_idfilms FROM success_actors;");
 $sth_act->execute();
 $acteurs = $sth_act->fetchAll();

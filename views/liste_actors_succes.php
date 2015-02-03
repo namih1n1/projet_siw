@@ -9,12 +9,6 @@ $result = $sth->fetchAll();
 
 if( !$result ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
 
-/*
-// Récupération des films sans acteurs trouvés
-$sth_no = $dbh-> prepare("SELECT sm_resource, sm_titre FROM success_movies WHERE id_success_m NOT IN (SELECT DISTINCT(id_sm) FROM link_sm_sa) ORDER BY sm_titre");
-$sth_no->execute();
-$result_no = $sth_no->fetchAll();
-*/
 // Récupération de l'année la plus récente des films répertoriés
 $sth_last = $dbh->prepare("SELECT MAX(mov_annee) as last FROM movies");
 $sth_last->execute();
@@ -28,36 +22,37 @@ echo "<table class='boxoffice_table'>
 		</thead>
 		<tbody>
 ";
-/*
-echo "<tr>
-				<td> - </td>
-				<td> - </td>
-				<td> - </td>
-				<td>
-					<ul>";
-foreach($result_no as $key => $movie) {
-		echo "			<li><a href=\"" . $__url_wiki . utf8_decode($movie['sm_resource']) . "\">" . utf8_decode($movie['sm_titre']) . "</a></li>";
-	}
-	echo "
-					</ul>
-				</td>
-			</tr>";   
-*/
+
 // Parcours des acteurs
 foreach($result as $key => $tb) {
 
-	$naissance 		= ($tb['act_naissance'] != "0000-00-00") ? $tb['act_naissance'] : "-";
+	if ($tb['act_naissance'] != "0000-00-00") {
+		$tb_naiss  = date_parse($tb['act_naissance']);
+		$naissance = $tb_naiss['day'] . "/" .$tb_naiss['month'] . "/" .$tb_naiss['year'];
+	}
+	else {
+		$naissance = "-";
+	}
+	
     echo "
 			<tr>
 				<td><a href=\"" . $__url_wiki . utf8_decode($tb['act_resource']) . "\">" . utf8_decode($tb['act_nom']) . "</a><br />
-					<a href=\"./liste_movies_by_actor_v2.php?id_actor=" . $tb['id_act'] . "\">Voir ses autres films</a>
+					<a href=\"./liste_movies_by_actor.php?id_actor=" . $tb['id_act'] . "\">Voir ses autres films</a>
 				</td>
 				<td>" . $naissance . "</td>
 				<td><img src=\"". utf8_decode($tb['act_url_image']) . "\" width='150px' height='150px'/></td>
 				<td>
-					<ul>";
+					<div id=\"show_movie_".$tb['id_act']."\" onclick=\"show_list(".$tb['id_act'].")\">Montrer ses films</div>
+					<ul id=\"montrer_film_".$tb['id_act']."\" style=\"display:none;\" >";
 	// Pour chaque acteur, parcours des films
-	$sth_idmovies = $dbh->prepare("SELECT id_mov as 'mov_id' FROM link_movies_actors WHERE id_act = ". $tb['id_act']);
+	$sth_idmovies = $dbh->prepare("
+		SELECT 	lma.id_mov as 'mov_id' 
+		FROM 	link_movies_actors lma,
+				movies m
+		WHERE 	lma.id_act = ". $tb['id_act'] ."
+		AND		lma.id_mov = m.id_mov
+		AND		m.mov_is_success = 1
+		");
 	$sth_idmovies->execute();
 
 	$movies = $sth_idmovies->fetchAll();

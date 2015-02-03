@@ -77,7 +77,7 @@ foreach($movies as $key => $tb) {
 unset($movies);
 
 
-// Mise à jour des films qui sont des succès au box-office
+// Mise à jour des acteurs au box-office
 $upd = $dbh->prepare("
 		UPDATE 	actors 
 		SET 	act_is_success = 1 

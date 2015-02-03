@@ -1,6 +1,60 @@
 var juste 	= "Vous avez raison !";
 var faux 	= "Vous avez tort.";
 
+function utf8_decode(str_data) {
+  //  discuss at: http://phpjs.org/functions/utf8_decode/
+  // original by: Webtoolkit.info (http://www.webtoolkit.info/)
+  //    input by: Aman Gupta
+  //    input by: Brett Zamir (http://brett-zamir.me)
+  // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // improved by: Norman "zEh" Fuchs
+  // bugfixed by: hitwork
+  // bugfixed by: Onno Marsman
+  // bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // bugfixed by: kirilloid
+  //   example 1: utf8_decode('Kevin van Zonneveld');
+  //   returns 1: 'Kevin van Zonneveld'
+
+  var tmp_arr = [],
+    i = 0,
+    ac = 0,
+    c1 = 0,
+    c2 = 0,
+    c3 = 0,
+    c4 = 0;
+
+  str_data += '';
+
+  while (i < str_data.length) {
+    c1 = str_data.charCodeAt(i);
+    if (c1 <= 191) {
+      tmp_arr[ac++] = String.fromCharCode(c1);
+      i++;
+    } else if (c1 <= 223) {
+      c2 = str_data.charCodeAt(i + 1);
+      tmp_arr[ac++] = String.fromCharCode(((c1 & 31) << 6) | (c2 & 63));
+      i += 2;
+    } else if (c1 <= 239) {
+      // http://en.wikipedia.org/wiki/UTF-8#Codepage_layout
+      c2 = str_data.charCodeAt(i + 1);
+      c3 = str_data.charCodeAt(i + 2);
+      tmp_arr[ac++] = String.fromCharCode(((c1 & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+      i += 3;
+    } else {
+      c2 = str_data.charCodeAt(i + 1);
+      c3 = str_data.charCodeAt(i + 2);
+      c4 = str_data.charCodeAt(i + 3);
+      c1 = ((c1 & 7) << 18) | ((c2 & 63) << 12) | ((c3 & 63) << 6) | (c4 & 63);
+      c1 -= 0x10000;
+      tmp_arr[ac++] = String.fromCharCode(0xD800 | ((c1 >> 10) & 0x3FF));
+      tmp_arr[ac++] = String.fromCharCode(0xDC00 | (c1 & 0x3FF));
+      i += 4;
+    }
+  }
+
+  return tmp_arr.join('');
+}
+
 function answer_no(param1,param2){
 	var naiss1 = new Date(param1);
 	var naiss2 = new Date(param2);
@@ -32,7 +86,7 @@ function answer_yes(param1,param2){
 }
 
 function verif_photo(id,choix_photo,reponse,compteur) {
-
+	reponse = utf8_decode(reponse);
 	document.getElementsByClassName('reponse_quiz').item(0).innerHTML = (choix_photo == id) ? juste + " C'est " + reponse 
 																							: faux + " C'est " + reponse;
 	document.getElementById("choix").style.display = "block";
@@ -49,6 +103,7 @@ function verif_photo(id,choix_photo,reponse,compteur) {
 }
 
 function verif_commun(id,choix_acteur,nom) {
+	nom = utf8_decode(nom);
 	document.getElementsByClassName("reponse_quiz").item(0).innerHTML = (choix_acteur == 1) 
 		? juste + " La r&eacute;ponse est " +nom
 		: faux  + " La r&eacute;ponse est " +nom;
@@ -78,6 +133,8 @@ function verif_year_disney(id,oneannee,choixannee){
 		}
 		elt.item(i).disabled = "disabled";
 	}
+	document.getElementById(oneannee).style.backgroundColor = "red";
+	document.getElementById(oneannee).style.color = "yellow";
 	document.getElementById("choix").style.display = "block";
 }
 
@@ -106,6 +163,7 @@ function answer_film_yes(naiss1,naiss2){
 }
 
 function verif_director(id,choix,answer) {
+	answer = utf8_decode(answer);
 	(choix == 1)	? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' La r&eacute;ponse est ' + answer
 					: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' La r&eacute;ponse est ' + answer;
 	var elt = document.getElementsByClassName("button_dir");
@@ -126,5 +184,10 @@ function again() {
 
 function changerQuiz() {
 	window.location = "./liste_quiz.php";
+}
+
+function show_list(id) {
+	document.getElementById('montrer_film_'+id).style.display = "block";
+	document.getElementById('show_movie_'+id).textContent = "";
 }
 	
