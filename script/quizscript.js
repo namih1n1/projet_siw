@@ -55,6 +55,16 @@ function utf8_decode(str_data) {
   return tmp_arr.join('');
 }
 
+function affichage_bloc_reponse() {
+	document.getElementsByClassName('reponse_quiz').item(0).style.display 		= "inline-block";
+	document.getElementsByClassName('reponse_quiz').item(0).style.border 		= "solid black 1px";
+	document.getElementsByClassName('reponse_quiz').item(0).style.paddingTop 	= "0px";
+	document.getElementsByClassName('reponse_quiz').item(0).style.paddingBottom = "0px";
+	document.getElementsByClassName('reponse_quiz').item(0).style.paddingLeft 	= "20px";
+	document.getElementsByClassName('reponse_quiz').item(0).style.paddingRight	= "20px";
+	document.getElementById('choix').style.display = "block";
+}
+
 function answer_no(param1,param2){
 	var naiss1 = new Date(param1);
 	var naiss2 = new Date(param2);
@@ -63,11 +73,13 @@ function answer_no(param1,param2){
 	(naiss1 > naiss2) 	
 		? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' ' + formatNaiss1 + " contre " + formatNaiss2
 		: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' ' + formatNaiss1 + " contre " + formatNaiss2;
-	document.getElementById('choix').style.display = "block";
+		
+	affichage_bloc_reponse();
 	document.getElementById("answer_no").style.backgroundColor = "blue";
 	document.getElementById("answer_no").style.color = "white";
 	document.getElementById('answer_no').disabled = "disabled";
 	document.getElementById('answer_yes').disabled = "disabled";
+	
 }
 
 function answer_yes(param1,param2){
@@ -78,7 +90,8 @@ function answer_yes(param1,param2){
 	(naiss1 < naiss2) 	
 		? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' ' + formatNaiss1 + " contre " + formatNaiss2
 		: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' ' + formatNaiss1 + " contre " + formatNaiss2;
-	document.getElementById('choix').style.display = "block";
+	
+	affichage_bloc_reponse();
 	document.getElementById("answer_yes").style.backgroundColor = "blue";
 	document.getElementById("answer_yes").style.color = "white";
 	document.getElementById('answer_no').disabled = 'disabled';
@@ -89,7 +102,8 @@ function verif_photo(id,choix_photo,reponse,compteur) {
 	reponse = utf8_decode(reponse);
 	document.getElementsByClassName('reponse_quiz').item(0).innerHTML = (choix_photo == id) ? juste + " C'est " + reponse 
 																							: faux + " C'est " + reponse;
-	document.getElementById("choix").style.display = "block";
+	
+	affichage_bloc_reponse();
 	var elt = document.getElementById("question").children;
 	var i = 0;
 	for (i = 0; i < elt.length; ++i) {
@@ -107,7 +121,8 @@ function verif_commun(id,choix_acteur,nom) {
 	document.getElementsByClassName("reponse_quiz").item(0).innerHTML = (choix_acteur == 1) 
 		? juste + " La r&eacute;ponse est " +nom
 		: faux  + " La r&eacute;ponse est " +nom;
-	document.getElementById("choix").style.display = "block";
+	
+	affichage_bloc_reponse();
 	var elt = document.getElementById("question").children;
 	var i = 0;
 	for (i = 0; i < elt.length; ++i) {
@@ -124,6 +139,9 @@ function verif_year_disney(id,oneannee,choixannee){
 	var faux 	= "Vous avez tort. La r&eacute;ponse &eacute;tait : ";
 	document.getElementsByClassName("reponse_quiz").item(0).innerHTML = (oneannee == choixannee) ? juste+oneannee : faux+oneannee;
 	
+	document.getElementById(oneannee).style.backgroundColor = "red";
+	document.getElementById(oneannee).style.color = "yellow";
+	
 	var elt = document.getElementsByClassName("button_annee");
 	var i = 0;
 	for(i = 0; i < elt.length; ++i) {
@@ -133,9 +151,8 @@ function verif_year_disney(id,oneannee,choixannee){
 		}
 		elt.item(i).disabled = "disabled";
 	}
-	document.getElementById(oneannee).style.backgroundColor = "red";
-	document.getElementById(oneannee).style.color = "yellow";
-	document.getElementById("choix").style.display = "block";
+	
+	affichage_bloc_reponse();
 }
 
 function answer_film_no(naiss1,naiss2){
@@ -143,7 +160,8 @@ function answer_film_no(naiss1,naiss2){
 	(naiss1 > naiss2) 	
 		? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' ' + naiss1 + " contre " + naiss2
 		: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' ' + naiss1 + " contre " + naiss2;
-	document.getElementById('choix').style.display = "block";
+	
+	affichage_bloc_reponse();
 	document.getElementById("answer_no").style.backgroundColor = "blue";
 	document.getElementById("answer_no").style.color = "white";
 	document.getElementById('answer_no').disabled = "disabled";
@@ -155,7 +173,8 @@ function answer_film_yes(naiss1,naiss2){
 	(naiss1 < naiss2) 	
 		? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' ' + naiss1 + " contre " + naiss2
 		: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' ' + naiss1 + " contre " + naiss2;
-	document.getElementById('choix').style.display = "block";
+	
+	affichage_bloc_reponse();
 	document.getElementById("answer_yes").style.backgroundColor = "blue";
 	document.getElementById("answer_yes").style.color = "white";
 	document.getElementById('answer_no').disabled = "disabled";
@@ -167,6 +186,9 @@ function verif_director(id,choix,answer) {
 	(choix == 1)	? document.getElementsByClassName("reponse_quiz").item(0).innerHTML = juste + ' La r&eacute;ponse est ' + answer
 					: document.getElementsByClassName("reponse_quiz").item(0).innerHTML = faux  + ' La r&eacute;ponse est ' + answer;
 	var elt = document.getElementsByClassName("button_dir");
+	document.getElementsByName(answer).item(0).style.backgroundColor = "red";
+	document.getElementsByName(answer).item(0).style.color = "yellow";
+	
 	var i = 0;
 	for(i = 0; i < elt.length; ++i) {
 		if (i == id) {
@@ -175,7 +197,8 @@ function verif_director(id,choix,answer) {
 		}
 		elt.item(i).disabled = "disabled";
 	}
-	document.getElementById("choix").style.display = "block";
+	
+	affichage_bloc_reponse();
 }
 
 function again() {

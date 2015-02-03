@@ -42,12 +42,8 @@ if ($type_quiz == 2 ) { // Question de type Qui est-ce ?
 	$choix_photo = rand(0,2);
 	
 	// Mélange du tableau de résultat
-	$keys = array_keys($quizactor);
-	shuffle($keys);
-	foreach($keys as $key) {
-		$rnd_quizactor[$key] = $quizactor[$key];
-	}
-	$quizactor = $rnd_quizactor;
+	mix_tb_keyed($quizactor);
+	
 	echo "
 		<div class=\"quizzidentite\">
 			<div id=\"identite\"> 
@@ -156,12 +152,7 @@ if ($type_quiz == 3 ) { // Question films communs
 	$tb_acteurs[2] = array("nom" => $list_aut_act[1]['act_nom'], "choix" => 0);
 	
 	// Mélange du tableau de résultat
-	$keys = array_keys($tb_acteurs);
-	shuffle($keys);
-	foreach($keys as $key) {
-		$rnd_quizactor[$key] = $tb_acteurs[$key];
-	}
-	$tb_acteurs = $rnd_quizactor;
+	mix_tb_keyed($tb_acteurs);
 
 	echo "
 		<div class=\"quizzcommun\">

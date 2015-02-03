@@ -42,14 +42,6 @@ if ($type_quiz_m == 1) {
 			<input id=\"answer_no\" type=\"button\" name=\"no\" value=\"NON\" onclick=\"answer_film_no(". $quizmovie[0]['mov_annee'] .",". $quizmovie[1]['mov_annee'] .")\" />
 			<input id=\"answer_yes\" type=\"button\" name=\"yes\" value=\"OUI\" onclick=\"answer_film_yes(". $quizmovie[0]['mov_annee'] .",". $quizmovie[1]['mov_annee'] .")\" />
 		</div>
-		<div class=\"propositions\">
-			<div class=\"reponse_quiz\"></div>
-			
-			<div id=\"choix\" style=\"display:none\">
-				<input type=\"button\" name=\"again\" value=\"SUIVANT\" onclick=\"again()\"  />
-				<input type=\"button\" name=\"other\" value=\"Autre quiz\" onclick=\"changerQuiz()\" />
-			</div>
-		</div>	
 		";
 }
 if ($type_quiz_m == 2) {
@@ -104,29 +96,32 @@ if ($type_quiz_m == 2) {
 	// Construction de la liste de films à afficher
 	// Ajout du titre le plus récent
 	$titre_recent = utf8_decode(array_pop($list_mov)['mov_titre']);
+	if (substr($titre_recent,0,strpos($titre_recent,"(film")) != false)
+		$titre_recent = trim(substr($titre_recent,0,strpos($titre_recent,"(film")));
+	else $titre_recent = trim($titre_recent);
+	
 	$tb_film[0] =array('id' => 0, 'titre' => $titre_recent);
 	
 	// Mélange du tableau de films
-	$keys = array_keys($list_mov);
-	shuffle($keys);
-	foreach($keys as $key) {
-		$rnd_list_mov[$key] = $list_mov[$key];
-	}
-	$list_mov = $rnd_list_mov;
-	unset($rnd_list_mov);
+	mix_tb_keyed($list_mov);
 	
 	// Ajout de deux autres titres.
-	$tb_film[1] = array('titre' => utf8_decode(array_pop($list_mov)['mov_titre']));
-	$tb_film[2] = array('titre' => utf8_decode(array_pop($list_mov)['mov_titre']));
+	$titre_autre = utf8_decode(array_pop($list_mov)['mov_titre']);
+	if (substr($titre_autre,0,strpos($titre_autre,"(film")) != false)
+		$titre_autre = trim(substr($titre_autre,0,strpos($titre_autre,"(film")));
+	else $titre_autre = trim($titre_autre);
+	
+	$tb_film[1] =array('titre' => $titre_autre);
+	
+	$titre_autre = utf8_decode(array_pop($list_mov)['mov_titre']);
+	if (substr($titre_autre,0,strpos($titre_autre,"(film")) != false)
+		$titre_autre = trim(substr($titre_autre,0,strpos($titre_autre,"(film")));
+	else $titre_autre = trim($titre_autre);
+	
+	$tb_film[2] =array('titre' => $titre_autre);
 	
 	// Mélange du tableau de films
-	$keys = array_keys($tb_film);
-	shuffle($keys);
-	foreach($keys as $key) {
-		$rnd_tb_film[$key] = $tb_film[$key];
-	}
-	$tb_film = $rnd_tb_film;
-	unset($rnd_tb_film);
+	mix_tb_keyed($tb_film);
 	
 	// Récupération de deux autres réalisateurs, qui n'ont pas réalisés les films proposés
 	$sth_other = $dbh->prepare("
@@ -146,13 +141,7 @@ if ($type_quiz_m == 2) {
 	$tb_prop[2] = array('nom' => $list_other[1]['dir_nom'], 'url_img' => $list_other[1]['dir_url_image'], 'choix' => 0);
 	
 	// Mélange du tableau des réalisateurs
-	$keys = array_keys($tb_prop);
-	shuffle($keys);
-	foreach($keys as $key) {
-		$rnd_tb_prop[$key] = $tb_prop[$key];
-	}
-	$tb_prop = $rnd_tb_prop;
-	unset($rnd_tb_prop);
+	mix_tb_keyed($tb_prop);
 	
 	unset($real);
 	unset($list_mov);
@@ -174,7 +163,8 @@ if ($type_quiz_m == 2) {
 							<tr>";
 					$cpt = 0;
 					foreach($tb_prop as $cle => $director) {
-						echo "	<td><img src=\"".utf8_decode($director['url_img'])."\" height='250px'/><br />
+						$director['nom'] = utf8_decode($director['nom']);
+						echo "	<td class=\"photo_dir\"><img src=\"".utf8_decode($director['url_img'])."\" /><br />
 									<input class=\"button_dir\" type=\"button\" name=\"".$director['nom']."\" value=\"".$director['nom']."\" onclick=\"verif_director(".$cpt.",".$director['choix'].",'".addslashes($reponse)."')\" />
 								</td>";
 						$cpt++;

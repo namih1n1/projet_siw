@@ -18,6 +18,10 @@
 <?php
 // Importation de la librairie SPARQL et connexion à la base
 require_once( "../lib/sparqllib.php" );
+
+// Importation des fonctions utiles
+require_once( "../lib/functions.php" );
+
 $db = sparql_connect( "http://fr.dbpedia.org/sparql" );
 
 if( !$db ) { print sparql_errno() . " : " . sparql_error(). "\n"; exit; }

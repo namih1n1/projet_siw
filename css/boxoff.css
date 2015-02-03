@@ -13,8 +13,10 @@ body{
 }
 
 .footer{
-	height:250px; 
+	border-top: solid black 1px;
+	height:auto;
 	margin-top:100px;
+	padding-top: 20px;
 }
 
 .sitetitle h1{
@@ -53,7 +55,7 @@ body{
 	-webkit-animation-iteration-count:infinite;
 	-webkit-animation-timing-function:ease-in-out;
 	-webkit-animation-direction: alternate;
-}		
+}
 
 input[type=button]{
 	font-size:15px;
@@ -78,7 +80,7 @@ a:hover {
 	list-style:none;
 	text-align:center;
 	background: #E7E5E4;
-	margin: 0;
+	margin-bottom:20px;
 
 }
 
@@ -209,6 +211,8 @@ table {
 	-moz-box-shadow: 0 1px 2px #d1d1d1;
 	-webkit-box-shadow: 0 1px 2px #d1d1d1;
 	box-shadow: 0 1px 2px #d1d1d1;
+	
+	margin-top: 20px;
 }
 table th {
 	padding:21px 25px 22px 25px;
