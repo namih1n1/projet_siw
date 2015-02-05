@@ -74,7 +74,7 @@ a:hover {
 	cursor:pointer;
 }
 
-#menu{
+#menu, .ss_menu{
 	padding:0;
 	margin:0;
 	list-style:none;

@@ -16,7 +16,7 @@ echo "<table>
 	<tbody>
 ";
 
-// Parcours des films de l'acteur courant
+// Parcours des films
 
 foreach ($films as $key => $tb) {
 	if (substr($tb['mov_titre'],0,strpos($tb['mov_titre'],"(film")) != false)

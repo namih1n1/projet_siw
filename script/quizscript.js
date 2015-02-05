@@ -213,4 +213,6 @@ function show_list(id) {
 	document.getElementById('montrer_film_'+id).style.display = "block";
 	document.getElementById('show_movie_'+id).textContent = "";
 }
+
+
 	

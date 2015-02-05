@@ -1,55 +1,56 @@
 <?php
 include("../includes/header.php");
-$actor_id = ( isset($_GET['id_actor']) ) ? ucwords($_GET['id_actor']) : null;
-// TO DO : si actor_id = null, redirection vers liste des acteurs
+$l_actor = ( isset($_GET['lettre']) ) ? ucwords($_GET['lettre']) : null;
 
-// Récupération acteur
-$act = $dbh->prepare("SELECT act_nom FROM actors WHERE id_act = ".$actor_id);
-$act->execute();
-$acteur = $act->fetchAll();
+$sth_acteurs = $dbh->prepare("SELECT * FROM actors WHERE act_nom LIKE \"".$l_actor."%\" ORDER BY act_nom");
+$sth_acteurs->execute();
+$acteurs = $sth_acteurs->fetchAll();
 
-// Recherche des films de l'acteur
-$mov_of_act = $dbh->prepare("
-	SELECT 	m.mov_resource 	as mov_resource, 
-			m.mov_titre		as mov_titre,
-			m.mov_annee		as mov_annee,
-			m.mov_url_image	as mov_url_image
-	FROM 	link_movies_actors lma, 
-			movies m
-	WHERE 	lma.id_act = " .$actor_id."
-	AND		lma.id_mov = m.id_mov
-	ORDER BY m.mov_annee DESC
-");
-$mov_of_act->execute();
-$list_mov = $mov_of_act->fetchAll();
-
-// Parcours
-if( !$list_mov ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
-
-echo "<div class = 'tabletitle' id='movie_actor'><h2>Les " .count($list_mov) . " films de " . utf8_decode($acteur[0]['act_nom']) . ".</h2></div>";
-echo "<table class='mov_act_table'>
-		<thead>
-			<tr><th>Film</th><th>Image</th><th>Ann&eacute;e</th></tr>
-		</thead>
-		<tbody>
+echo "<div class = 'tabletitle' id='movielist'><h2>" .count($acteurs) . " acteurs commencant par " . $l_actor . ".</h2></div>";
+echo "<table>
+	<thead>
+        <tr>
+			<th>Acteurs</th><th>Photo</th><th>Date de naissance</th><th>Au box-office</th><th>Films</th>
+		</tr>
+	</thead>
+	<tbody>
 ";
 
-// Parcours des films
-foreach($list_mov as $key => $tb) {
-	$traited_titre = utf8_decode($tb['mov_titre']);
-	if (strpos($traited_titre,"(film") != 0)
-		$traited_titre = trim(substr($traited_titre,0,strpos($traited_titre,"(film")));
-    echo "
-			<tr>
-				<td><a href=\"" . $__url_wiki . utf8_decode($tb['mov_resource']) . "\">" . $traited_titre . "</a></td>
-				<td><img src=\"". utf8_decode($tb['mov_url_image']) . "\" width='150px' height='150px'/></td>
-				<td>" . $tb['mov_annee'] . "</td>
-			</tr>";   
+// Parcours des acteurs
+foreach ($acteurs as $key => $tb) {
+
+	$traitement_nom = trim(utf8_decode($tb['act_nom']));
+	
+	$succes = ($tb['act_is_success'] == 1) ? 'Oui' : 'Non';
+	echo "
+    <tr>
+        <td><a href=\"" . $__url_wiki . utf8_decode($tb['act_resource']) . "\">" . $traitement_nom ."</td>
+		<td><img src=\"".utf8_decode($tb['act_url_image'])."\" width='200px' height='auto' /></td>
+        <td>" . $tb['act_naissance'] . "</td>
+		<td>" . $succes . "</td>
+		<td><ul>";
+		
+		
+		$sth_films = $dbh->prepare("
+			SELECT 	m.mov_resource, 
+					m.mov_titre 
+			FROM 	actors a, 
+					movies m, 
+					link_movies_actors l 
+			WHERE 	a.id_act = l.id_act
+			AND		l.id_mov = m.id_mov
+			AND 	a.id_act = ".$tb['id_act']);
+		$sth_films->execute();
+		$movies = $sth_films->fetchAll();
+		foreach($movies as $key => $movie) {
+				echo "<li><a href=\"" . $__url_wiki . utf8_decode($movie['mov_resource']) . "\">" . utf8_decode($movie['mov_titre']) ."</li>";
+		}
+		
+		echo "</ul></td>
+    </tr>";   
 }
 
-echo "	</tbody>
-	</table>";
-unset($list_mov);
+echo "</tbody></table>";
 
 include("../includes/footer.php");
 ?>

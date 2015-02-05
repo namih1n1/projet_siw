@@ -53,11 +53,38 @@ $__ressource = "http://fr.dbpedia.org/resource/";
 	<h4>Petit conseil ... Consultez le site avant de passer au Quiz ... A part si vous &ecirc;tes incollable ;) </h4>
 	
 	<ul id="menu">
-		<li><a href="../views/liste_movies_succes.php#movie_success">Films au box-office mondial</a></li>
-		<li><a href="../views/liste_movies_disney.php#movie_disney">Films Disney</a></li>
-		<li><a href="../views/liste_actors_succes.php#actor_success">Acteurs au box-office mondial</a></li>
-		<li><a href="../views/liste_alpha.php#liste_referer">Films r&eacute;f&eacute;renc&eacute;s</a></li>
-		<li><a href="../views/liste_quiz.php#liste_quiz">Acc&eacute;der aux quiz</a></li>
+		<li class="onglet"><a>Liste des films</a>
+			<ul class="ss_menu">
+				<li><a href="../views/liste_movies_succes.php#movie_success">Au box-office</a></li>
+				<li><a href="../views/liste_movies_disney.php#movie_disney">Films Disney</a></li>
+				<li><a href="../views/liste_alpha.php?what=movie&by=name">Par titre</a></li>
+				<li><a href="../views/liste_alpha.php?what=movie&by=actor">Par acteur</a></li>
+				<li><a href="../views/liste_alpha.php?what=movie&by=director">Par r&eacute;alisateur</a></li>
+			</ul>
+		</li>
+		<li class="onglet"><a>Liste des acteurs</a>
+			<ul class="ss_menu">
+				<li><a href="../views/liste_actors_succes.php#actor_success">Au box-office</a></li>
+				<li><a href="#">Par nom**</a></li>
+				<li><a href="#">Par film**</a></li>
+				<li><a href="#">Par r&eacute;alisateur**</a></li>
+			</ul>
+		</li>
+		<li class="onglet"><a>Liste des r&eacute;alisateurs</a>
+			<ul class="ss_menu">
+				<li><a href="#">Par nom**</a></li>
+				<li><a href="#">Par film**</a></li>
+				<li><a href="#">Par acteur dirig&eacute;**</a></li>
+			</ul>
+		</li>
+		<li class="onglet"><a>Acc&eacute;der aux diff&eacute;nts quiz</a>
+			<ul class="ss_menu">
+				<li><a href="../views/quiz_actor.php?easy=yes">Acteurs au box-office</a></li>
+				<li><a href="../views/quiz_actor.php?easy=no">Tous les acteurs</a></li>
+				<li><a href="../views/quiz_movie.php">Sur les films</a></li>
+				<li><a href="../views/quiz_disney.php">Quiz Disney</a></li>
+			</ul>
+		</li>
 	</ul>
 </div>
 
