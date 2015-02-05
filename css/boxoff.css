@@ -70,7 +70,8 @@ input[type=button]:hover {
 	text-align: center;
 }
 
-a:hover {
+a:hover, a.url_wiki:hover {
+	text-decoration:underline;
 	cursor:pointer;
 }
 
@@ -366,5 +367,8 @@ color: black;
 
 .recherche p {
 font-size: 24px;
+}
 
+.url_wiki {
+	color: blue !important;
 }

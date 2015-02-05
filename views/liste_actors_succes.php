@@ -4,7 +4,6 @@ include("../includes/header.php");
 // Récupération des acteurs à succès de la base
 $sth = $dbh->prepare("SELECT * FROM actors WHERE act_is_success = 1 ORDER BY act_nom");
 $sth->execute();
-
 $result = $sth->fetchAll();
 
 if( !$result ) { print_r($dbh->errorInfo()); echo "\n"; exit; }
@@ -36,8 +35,8 @@ foreach($result as $key => $tb) {
 	
     echo "
 			<tr>
-				<td><a href=\"" . $__url_wiki . utf8_decode($tb['act_resource']) . "\">" . utf8_decode($tb['act_nom']) . "</a><br />
-					<a href=\"./liste_movies_by_actor.php?id_actor=" . $tb['id_act'] . "\">Voir ses autres films</a>
+				<td><a  class=\"url_wiki\" href=\"" . $__url_wiki . utf8_decode($tb['act_resource']) . "\">" . utf8_decode($tb['act_nom']) . "</a><br />
+					<a href=\"./liste_movies_for_one_actor.php?id_actor=" . $tb['id_act'] . "\">Voir ses autres films</a>
 				</td>
 				<td>" . $naissance . "</td>
 				<td><img src=\"". utf8_decode($tb['act_url_image']) . "\" width='150px' height='150px'/></td>
@@ -60,7 +59,7 @@ foreach($result as $key => $tb) {
 		$sth_movie = $dbh->prepare("SELECT mov_resource, mov_titre FROM movies WHERE id_mov = ". $id_mov['mov_id']);
 		$sth_movie->execute();
 		$movie = $sth_movie->fetchAll();
-		echo "			<li><a href=\"" . $__url_wiki . utf8_decode($movie[0]['mov_resource']) . "\">" . utf8_decode($movie[0]['mov_titre']) . "</a></li>";
+		echo "			<li><a class=\"url_wiki\" href=\"" . $__url_wiki . utf8_decode($movie[0]['mov_resource']) . "\">" . utf8_decode($movie[0]['mov_titre']) . "</a></li>";
 	}
 	echo "
 					</ul>

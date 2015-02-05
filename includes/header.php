@@ -65,16 +65,16 @@ $__ressource = "http://fr.dbpedia.org/resource/";
 		<li class="onglet"><a>Liste des acteurs</a>
 			<ul class="ss_menu">
 				<li><a href="../views/liste_actors_succes.php#actor_success">Au box-office</a></li>
-				<li><a href="#">Par nom**</a></li>
-				<li><a href="#">Par film**</a></li>
-				<li><a href="#">Par r&eacute;alisateur**</a></li>
+				<li><a href="../views/liste_alpha.php?what=actor&by=name">Par nom</a></li>
+				<li><a href="../views/liste_alpha.php?what=actor&by=movie">Par film</a></li>
+				<li><a href="../views/liste_alpha.php?what=actor&by=director">Par r&eacute;alisateur</a></li>
 			</ul>
 		</li>
 		<li class="onglet"><a>Liste des r&eacute;alisateurs</a>
 			<ul class="ss_menu">
-				<li><a href="#">Par nom**</a></li>
-				<li><a href="#">Par film**</a></li>
-				<li><a href="#">Par acteur dirig&eacute;**</a></li>
+				<li><a href="../views/liste_alpha.php?what=director&by=name">Par nom</a></li>
+				<li><a href="../views/liste_alpha.php?what=director&by=movie">Par film**</a></li>
+				<li><a href="../views/liste_alpha.php?what=director&by=actor">Par acteur dirig&eacute;**</a></li>
 			</ul>
 		</li>
 		<li class="onglet"><a>Acc&eacute;der aux diff&eacute;nts quiz</a>

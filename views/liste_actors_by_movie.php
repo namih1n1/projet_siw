@@ -30,6 +30,7 @@ foreach ($films as $key => $tb) {
     <tr>
         <td><a class=\"url_wiki\" href=\"" . $__url_wiki . utf8_decode($tb['mov_resource']) . "\">" . $traitement_titre ."</td>
 		<td><div id=\"show_infos_".$tb['id_mov']."\" onclick=\"show_infos(".$tb['id_mov'].")\">Voir les informations relatives</div>
+			<div><a href=\"./liste_actors_for_one_movie.php?id_movie=".$tb['id_mov']."\">Cliquer ici pour voir les acteurs</a></div>
 			<table id=\"montrer_infos_".$tb['id_mov']."\" style=\"display:none;\" >
 				<thead><th>Image</th><th>Ann&eacute;e de sortie</th><th>Au box-office</th></thead>
 				<tr>

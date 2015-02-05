@@ -27,7 +27,7 @@ echo "<table class='boxoffice_table'>
 foreach($result as $key => $tb) {
     echo "
 			<tr>
-				<td><a href=\"" . $__url_wiki . utf8_decode($tb['dm_resource']) . "\">" . utf8_decode($tb['dm_titre']) . "</a></td>
+				<td><a class=\"url_wiki\" href=\"" . $__url_wiki . utf8_decode($tb['dm_resource']) . "\">" . utf8_decode($tb['dm_titre']) . "</a></td>
 				<td><img src=\"". utf8_decode($tb['dm_url_image']) . "\" width='150px' height='150px'/></td>
 				<td>" . $tb['dm_annee'] . "</td>
 				<td>
@@ -39,7 +39,7 @@ foreach($result as $key => $tb) {
 
 	$oscars = $sth_oscars->fetchAll();
 	foreach($oscars as $key => $osc) {
-		echo "			<li><a href=\"" . $__url_wiki . utf8_decode($osc['osc_dm_resource']) . "\">" . utf8_decode($osc['osc_dm_titre']) . "</a></li>";
+		echo "			<li><a class=\"url_wiki\" href=\"" . $__url_wiki . utf8_decode($osc['osc_dm_resource']) . "\">" . utf8_decode($osc['osc_dm_titre']) . "</a></li>";
 	}
 	echo "
 					</ul>

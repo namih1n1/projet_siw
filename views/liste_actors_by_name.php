@@ -31,9 +31,8 @@ if ( isset($_GET['lettre']) ) {
 		$succes = ($tb['act_is_success'] == 1) ? 'Oui' : 'Non';
 		echo "
 		<tr>
-			<td><a href=\"./liste_movies_for_one_actor.php?id_actor=".$tb['id_act']."\">" . $traitement_nom ."</td>
+			<td><a class=\"url_wiki\" href=\"" . $__url_wiki . utf8_decode($tb['act_resource']) . "\">" . $traitement_nom ."</td>
 			<td><div id=\"show_infos_".$tb['id_act']."\" onclick=\"show_infos(".$tb['id_act'].")\">Voir les informations relatives</div>
-				<div><a href=\"./liste_movies_for_one_actor.php?id_actor=".$tb['id_act']."\">Cliquer ici pour voir ses films</a></div>
 				<table id=\"montrer_infos_".$tb['id_act']."\" style=\"display:none;\" >
 					<thead><th>Image</th><th>Date de naissance</th><th>Au box-office</th></thead>
 					<tr>

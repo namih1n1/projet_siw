@@ -214,5 +214,10 @@ function show_list(id) {
 	document.getElementById('show_movie_'+id).textContent = "";
 }
 
+function show_infos(id) {
+	document.getElementById('montrer_infos_'+id).style.display = "block";
+	document.getElementById('show_infos_'+id).textContent = "";
+}
+
 
 	

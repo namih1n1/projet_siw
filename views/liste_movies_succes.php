@@ -29,7 +29,7 @@ foreach($result as $key => $tb) {
 		$traited_titre = trim(substr($traited_titre,0,strpos($traited_titre,"(film")));
     echo "
 			<tr>
-				<td><a href=\"" . $__url_wiki . utf8_decode($tb['mov_resource']) . "\">" . $traited_titre . "</a></td>
+				<td><a class=\"url_wiki\" href=\"" . $__url_wiki . utf8_decode($tb['mov_resource']) . "\">" . $traited_titre . "</a></td>
 				<td><img src=\"". utf8_decode($tb['mov_url_image']) . "\" width='150px' height='150px'/></td>
 				<td>" . $tb['mov_annee'] . "</td>
 				<td>
@@ -44,7 +44,7 @@ foreach($result as $key => $tb) {
 		$sth_actor = $dbh->prepare("SELECT act_resource, act_nom FROM actors WHERE id_act = ". $id_act['act_id']);
 		$sth_actor->execute();
 		$actor = $sth_actor->fetchAll();
-		echo "			<li><a href=\"" . $__url_wiki . utf8_decode($actor[0]['act_resource']) . "\">" . utf8_decode($actor[0]['act_nom']) . "</a></li>";
+		echo "			<li><a class=\"url_wiki\" href=\"" . $__url_wiki . utf8_decode($actor[0]['act_resource']) . "\">" . utf8_decode($actor[0]['act_nom']) . "</a></li>";
 	}
 	echo "
 					</ul>
